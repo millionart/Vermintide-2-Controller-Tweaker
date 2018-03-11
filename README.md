@@ -9,6 +9,7 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 ## Asian text chat | 亚洲文字聊天
 
 - Set game to window full mode | 必须设置游戏为窗口全屏模式
+- Chat only script | 仅有聊天功能的脚本 Vermintide 2 Chatbox.ahk
 
 ## New control method | 全新控制方式
 

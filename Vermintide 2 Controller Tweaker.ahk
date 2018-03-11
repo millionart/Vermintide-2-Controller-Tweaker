@@ -7,94 +7,89 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance, force
 ;#NoTrayIcon
+inBattle=0
+inputState=0
+bGColor=FF00FF
+transparency=200
+title=ChatBoxTitle
+chatboxY:=A_ScreenHeight*0.89
+chatboxW:=A_ScreenWidth/A_ScreenDPI*16
 
 Menu, tray, NoStandard
-Menu, tray, add, Reload, ReloadScrit
-Menu, tray, add, Pause, PauseScrit
+Menu, tray, add, 重置 | Reload, ReloadScrit
+Menu, tray, add, 暂停 | Pause, PauseScrit
 Menu, tray, add
-Menu, tray, add, Help, Help
-Menu, tray, add, Update, UpdateScrit
-Menu, tray, add, Exit, ExitScrit
+Menu, tray, add, 帮助 | Help, Help
+Menu, tray, add, 更新 | Ver 0.1, UpdateScrit
+Menu, tray, add, 退出 | Exit, ExitScrit
+
+
+Gui, +ToolWindow -Caption +AlwaysOnTop
+Gui, Color, %bGColor%
+gui, font, s12 cffffff
+Gui, Color, ,000000
+Gui, Add, Edit, x0 y0 w%chatboxW% h25 vChatBox Limit140
+gui, font
+
+
 
 #IfWinActive, ahk_exe vermintide2.exe
-    P::
-    If (inputState!=1)
-    {
-        If (tabUI=1)
+    SetTimer, autoBlock, 500
+
+    Enter::
+        inputState:=inputState=0?1:0
+
+        If (inputState=1)
         {
-            Send, {Tab Up}
-            tabUI=0
+            Send, {Enter}
+            Gui, Show, w%chatboxW% h25 x0 y%chatboxY%, %title%
+            WinSet, TransColor, %bGColor% %transparency%, %title%
         }
-        else (tabUI=0)
-        {
-            inBattle=0
-            Send, {Tab Down}
-            Sleep, 500
-            send, {RButton}
-            tabUI=1
-        }
-    }
-    Else
-      send,{p}
+        Else
+            normalButton("Enter")
     Return
+
 
     f::
         inBattle:=inBattle=1?0:1
 
         If (inBattle=1)
         {
-            weapon=1
             Send, {1}
-            Sleep, 500
+            weapon=1
+            Sleep, 200
             send, {RButton Down}
         }
 
         If (inBattle=0)
-        {
-            send,{RButton Up}
-            send,{f}
-        }
-        Return
+            normalButton("f")
+    Return
 
-        Esc::
-            inBattle=0
-            send,{RButton Up}
-            send,{Esc}
+    Esc::
+        normalButton("Esc")
+        inputState=0
     Return
     
-    Enter::
-        inputState:=inputState=0?1:0
-        inBattle=0
-        send,{RButton Up}
-        send,{Enter}
-    Return
-
     1::
         weapon=1
         Send, {1}
     Return
 
     2::
-    weapon=2
-    Send, {2}
+        weapon=2
+        Send, {2}
     Return
 
     3::
-    inBattle=0
-    send,{RButton Up}
-    send,{3}
+        normalButton("3")
     Return
 
     4::
-    inBattle=0
-    send,{RButton Up}
-    send,{4}
+        normalButton("4")
     Return
 
     5::
-    inBattle=0
-    send,{RButton Up}
-    send,{5}
+        normalButton("5")
     Return
 
     checkRButton:
@@ -113,16 +108,22 @@ Menu, tray, add, Exit, ExitScrit
     {
         If (weapon=1)
         {
-            send, {RButton Up}
             send, {LButton}
-            Loop,
+            sleep,150
+            lButton:=GetKeyState("LButton" , "P")
+            If (lButton=1)
             {
-                send, {LButton}
-                Random, clickIntervals , 300, 500
-                sleep, %clickIntervals%
-                lButton:=GetKeyState("LButton" , "P")
-            }Until lButton=0
-            send,{RButton Down}
+                send, {RButton Up}
+                Loop,
+                {
+                    send, {LButton}
+                    Random, clickIntervals , 100, 300
+                    sleep, %clickIntervals%
+                    lButton:=GetKeyState("LButton" , "P")
+                }Until lButton=0
+            }
+
+            Send, {RButton Down}
         }
 
         If (weapon=2)
@@ -140,9 +141,9 @@ Menu, tray, add, Exit, ExitScrit
     }
     Else
     {
-      Send, {LButton Down}
-      KeyWait, LButton
-      Send, {LButton Up}
+        Send, {LButton Down}
+        KeyWait, LButton
+        Send, {LButton Up}
     }
     Return
 
@@ -151,15 +152,21 @@ Menu, tray, add, Exit, ExitScrit
     {
         If (weapon=1)
         {
-            send,{RButton Down}
+            Send, {LButton}
             Sleep, 200
             rButton:=GetKeyState("RButton" , "P")
             If (rButton=1)
             {
-                send,{RButton Up}
+                Send, {RButton Up}
+                loop,
+                {
                 Send, {LButton Down}
-                KeyWait, RButton
+                sleep,1500
                 Send, {LButton Up}
+                sleep,200
+                rButton:=GetKeyState("RButton" , "P")
+                }Until (rButton=0)
+
             }
         }
 
@@ -170,8 +177,8 @@ Menu, tray, add, Exit, ExitScrit
             {
                 Loop
                 {
-                    send,{LButton}
-                    Random, clickIntervals , 300, 500
+                    Send, {LButton}
+                    Random, clickIntervals , 100, 300
                     sleep, %clickIntervals%
                     rButton:=GetKeyState("RButton" , "P")
                 }Until rButton=0
@@ -187,7 +194,6 @@ Menu, tray, add, Exit, ExitScrit
         KeyWait, RButton
         Send, {RButton Up}
     }
-
     Return
 
     WheelUp::
@@ -233,13 +239,47 @@ Menu, tray, add, Exit, ExitScrit
     Else
         Send, {WheelDown}
     Return
+
+    p::
+    If (inputState!=1)
+    {
+        If (tabUI=1)
+        {
+            Send, {Tab Up}
+            tabUI=0
+        }
+        else (tabUI=0)
+        {
+            inBattle=0
+            Send, {Tab Down}
+            Sleep, 500
+            send, {RButton}
+            tabUI=1
+        }
+    }
+    Else
+        Send, {p}
+    Return
+
+    i::
+    normalButton("i")
+    Return
+
+    h::
+    normalButton("h")
+    Return
+
+    m::
+    normalButton("m")
+    Return
+
     /*
     a::
     If (inBattle=1)
     {
-        send,{a Down}{Shift}
+        Send, {a Down}{Shift}
         KeyWait, a
-        send,{a Up}
+        Send, {a Up}
     }
     Else
     {
@@ -251,9 +291,9 @@ Menu, tray, add, Exit, ExitScrit
     s::
     If (inBattle=1)
     {
-        send,{s Down}{Shift}
+        Send, {s Down}{Shift}
         KeyWait, s
-        send,{s Up}
+        Send, {s Up}
     }
     Else
     {
@@ -265,9 +305,9 @@ Menu, tray, add, Exit, ExitScrit
     d::
     If (inBattle=1)
     {
-        send,{d Down}{Shift}
+        Send, {d Down}{Shift}
         KeyWait, d
-        send,{d Up}
+        Send, {d Up}
     }
     Else
     {
@@ -279,8 +319,52 @@ Menu, tray, add, Exit, ExitScrit
     Return
 #IfWinActive
 
+#IfWinActive, ChatBoxTitle
+    Enter::
+    Gui Submit
+    ;Gui, Show, Hide
+    WinActive("ahk_exe vermintide2.exe")
+    WinWaitActive, ahk_exe vermintide2.exe
+    If (ChatBox!="")
+    {
+        Send, %ChatBox%
+        Sleep, 100
+    }
+    Send, {Enter}
+    GuiControl, Text, ChatBox,
+    inputState=0
+    Return
+
+    Esc::
+    Gui Cancel
+    WinActive("ahk_exe vermintide2.exe")
+    WinWaitActive, ahk_exe vermintide2.exe
+
+    Send, {Enter}
+    ;GuiControl, Text, ChatBox,
+    inputState=0
+    Return
+#IfWinActive
+
+normalButton(key)
+{
+    inBattle=0
+    send, {RButton Up}
+    Send, {%key%}
+}
+
 ReloadScrit:
 Reload
+Return
+
+autoBlock:
+If (inBattle=1) && (weapon=1)
+{
+    lButton:=GetKeyState("LButton" , "P")
+    rButton:=GetKeyState("RButton" , "P")
+    If (lButton=0) && (rButton=0)
+        Send, {RButton Down}
+}
 Return
 
 PauseScrit:

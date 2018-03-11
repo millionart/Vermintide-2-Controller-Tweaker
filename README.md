@@ -6,18 +6,23 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ----
 
+## Asian text chat | 亚洲文字聊天
+
+- Set game to window full mode | 必须设置游戏为窗口全屏模式
+
 ## New control method | 全新控制方式
 
 ## Melee weapon status | 近战武器状态
 
 ### Left button | 左键
 
-- Hold to attack continuously | 按住连续攻击
+- Click to Fight back | 单击反击
+- Hold to attack continuously | 按住连续轻击
 
 ### Right button | 右键
 
-- Click to open block | 单击开启格挡
-- Hold to force attack | 按住蓄力攻击
+- Click to Fight back | 单击反击
+- Hold to force attack | 按住连续重击
 
 ## Long-range weapon status | 远程武器
 

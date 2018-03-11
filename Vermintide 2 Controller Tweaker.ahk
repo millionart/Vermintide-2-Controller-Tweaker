@@ -31,14 +31,12 @@ Gui, Color, ,000000
 Gui, Add, Edit, x0 y0 w%chatboxW% h25 vChatBox Limit140
 gui, font
 
-
+SetTimer, autoBlock, 500
 
 #IfWinActive, ahk_exe vermintide2.exe
-    SetTimer, autoBlock, 500
-
     Enter::
         inputState:=inputState=0?1:0
-
+        inBattle=0
         If (inputState=1)
         {
             Send, {Enter}
@@ -316,7 +314,6 @@ gui, font
         Send, {d Up}
     }
 */
-    Return
 #IfWinActive
 
 #IfWinActive, ChatBoxTitle
@@ -343,22 +340,16 @@ gui, font
     Send, {Enter}
     ;GuiControl, Text, ChatBox,
     inputState=0
-    Return
-#IfWinActive
 
-normalButton(key)
-{
-    inBattle=0
-    send, {RButton Up}
-    Send, {%key%}
-}
+#IfWinActive
+Return
 
 ReloadScrit:
 Reload
 Return
 
 autoBlock:
-If (inBattle=1) && (weapon=1)
+If WinActive("ahk_exe vermintide2.exe") && (inBattle=1) && (weapon=1)
 {
     lButton:=GetKeyState("LButton" , "P")
     rButton:=GetKeyState("RButton" , "P")
@@ -382,3 +373,12 @@ Return
 ExitScrit:
 ExitApp
 Return
+
+normalButton(key)
+{
+    global
+    inBattle=0
+    weapon=0
+    send, {RButton Up}
+    Send, {%key%}
+}

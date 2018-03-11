@@ -20,7 +20,7 @@ Menu, tray, add, 重置 | Reload, ReloadScrit
 Menu, tray, add, 暂停 | Pause, PauseScrit
 Menu, tray, add
 Menu, tray, add, 帮助 | Help, Help
-Menu, tray, add, 更新 | Ver 0.1, UpdateScrit
+Menu, tray, add, 更新 | Ver 0.3, UpdateScrit
 Menu, tray, add, 退出 | Exit, ExitScrit
 
 

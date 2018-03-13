@@ -1,6 +1,7 @@
 ﻿
 skillKey=f
 chatboxMaxLength=10
+ver=0.4
 inBattle=1
 inputState=0
 bGColor=FF00FF

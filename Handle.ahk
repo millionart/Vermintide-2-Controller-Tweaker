@@ -21,15 +21,23 @@
     Return
 
     f2::
-    FastWord("f2","谢谢 (*^з^*)")
+    FastWord("f2","233")
     Return
 
     f3::
-    FastWord("f3","膨胀了膨胀了，快回来")
+    FastWord("f3","谢谢 (*^з^*)")
     Return
 
     f4::
     FastWord("f4","你们看我屌吗-_,-")
+    Return
+
+    f5::
+    FastWord("f5","膨胀了膨胀了，快回来")
+    Return
+
+    f6::
+    FastWord("f6","老哥666")
     Return
 
     f11::
@@ -117,6 +125,7 @@ normalButton(key)
 {
     global
     inBattle=0
+    preWeapon:=weapon
     weapon=0
     send, {RButton Up}
     rDown=0

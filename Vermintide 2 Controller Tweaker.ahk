@@ -84,43 +84,40 @@ Return
     Return
 
     LButton::
-    If (inBattle=1)
+    If (inBattle=1) && (weapon=1)
     {
-        If (weapon=1)
+        send, {LButton}
+        sleep,150
+        lButton:=GetKeyState("LButton" , "P")
+        If (lButton=1)
         {
-            send, {LButton}
-            sleep,150
-            lButton:=GetKeyState("LButton" , "P")
-            If (lButton=1)
+            send, {RButton Up}
+            rDown=0
+            Loop,
             {
-                send, {RButton Up}
-                rDown=0
-                Loop,
-                {
-                    send, {LButton}
-                    Random, clickIntervals , 100, 150
-                    sleep, %clickIntervals%
-                    lButton:=GetKeyState("LButton" , "P")
-                }Until lButton=0
-            }
-
-            Send, {RButton Down}
-            rDown=1
+                send, {LButton}
+                Random, clickIntervals , 100, 150
+                sleep, %clickIntervals%
+                lButton:=GetKeyState("LButton" , "P")
+            }Until lButton=0
         }
 
-        If (weapon=2)
+        Send, {RButton Down}
+        rDown=1
+    }
+    Else
+    If (inBattle=1) && (weapon=2)
+    {
+        SetTimer, checkRButton,200
+        rButton:=GetKeyState("rButton" , "P")
+        If (rButton=0)
         {
-            SetTimer, checkRButton,200
-            rButton:=GetKeyState("rButton" , "P")
-            If (rButton=0)
-            {
-                send, {RButton Down}
-                rDown=1
-                KeyWait, LButton
-                send, {LButton}
-                send, {RButton Up}
-                rDown=0
-            }
+            send, {RButton Down}
+            rDown=1
+            KeyWait, LButton
+            send, {LButton}
+            send, {RButton Up}
+            rDown=0
         }
     }
     Else
@@ -128,47 +125,44 @@ Return
     Return
 
     RButton::
-    If (inBattle=1)
+    If (inBattle=1) && (weapon=1)
     {
-        If (weapon=1)
+        Send, {LButton}
+        Sleep, 200
+        rButton:=GetKeyState("RButton" , "P")
+        If (rButton=1)
         {
-            Send, {LButton}
-            Sleep, 200
+            Send, {RButton Up}
+            rDown=0
+            loop,
+            {
+            Send, {LButton Down}
+            sleep,1500
+            Send, {LButton Up}
+            sleep,200
             rButton:=GetKeyState("RButton" , "P")
-            If (rButton=1)
-            {
-                Send, {RButton Up}
-                rDown=0
-                loop,
-                {
-                Send, {LButton Down}
-                sleep,1500
-                Send, {LButton Up}
-                sleep,200
-                rButton:=GetKeyState("RButton" , "P")
-                }Until (rButton=0)
+            }Until (rButton=0)
 
-            }
         }
-
-        If (weapon=2)
+    }
+    Else
+    If (inBattle=1) && (weapon=2)
+    {
+        lButton:=GetKeyState("LButton" , "P")
+        If (lButton=0)
         {
-            lButton:=GetKeyState("LButton" , "P")
-            If (lButton=0)
+            Loop
             {
-                Loop
-                {
-                    Send, {LButton}
-                    Random, clickIntervals , 100, 150
-                    sleep, %clickIntervals%
-                    rButton:=GetKeyState("RButton" , "P")
-                }Until rButton=0
-            }
-            Else
-            {
-                send, {RButton Up}
-                rDown=0
-            }
+                Send, {LButton}
+                Random, clickIntervals , 100, 150
+                sleep, %clickIntervals%
+                rButton:=GetKeyState("RButton" , "P")
+            }Until rButton=0
+        }
+        Else
+        {
+            send, {RButton Up}
+            rDown=0
         }
     }
     Else
@@ -192,25 +186,62 @@ Return
         Send, {WheelDown}
     Return
 
+    e::
+    If (inputState=1)
+        normalButton("e")
+    Else
+    {
+    Send, {e Down}
+    KeyWait, e
+    Send, {e Up}
+    send, {t}
+    }
+    Return
+
+    t::
+    If (inputState=1)
+        normalButton("e")
+    Else
+    {
+        Loop, 
+        {
+            Send, {t}
+            Sleep, 200
+            tKeyDown:=GetKeyState("t", "P")
+        }Until (tKeyDown=0)
+    }
+    Return
+
     p::
-    If (inputState!=1)
+    If (inputState=1)
+        normalButton("p")
+    Else
     {
         If (tabUI=1)
         {
             Send, {Tab Up}
             tabUI=0
         }
-        else (tabUI=0)
+        
+        If (tabUI=0) || (tabUI="")
         {
             inBattle=0
-            Send, {Tab Down}
-            Sleep, 500
-            send, {RButton}
+            Send, {Tab Down}{RButton}
             tabUI=1
         }
     }
-    Else
-        normalButton("p")
+    Return
+
+    i::
+    normalButton("i")
+    Return
+
+    h::
+    normalButton("h")
+    Return
+
+    m::
+    normalButton("m")
     Return
 
     s::
@@ -261,18 +292,24 @@ battleModeCheck:
 		Gui Cancel
 	}
 
-	If WinActive("ahk_exe vermintide2.exe") && (inBattle=1) && (weapon=1)
-	{
-		lButton:=GetKeyState("LButton" , "P")
-		rButton:=GetKeyState("RButton" , "P")
-		shiftKeyDown:=GetKeyState("Shift" , "P")
-		forwardKeyDown:=GetKeyState("w" , "P")
-		If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0)
-		{
-			Send, {RButton Down}
-			rDown=1
-		}
-	}
+	If WinActive("ahk_exe vermintide2.exe")
+    {
+        If (inBattle=1) && (weapon=1)
+        {
+            lButton:=GetKeyState("LButton" , "P")
+            rButton:=GetKeyState("RButton" , "P")
+            shiftKeyDown:=GetKeyState("Shift" , "P")
+            forwardKeyDown:=GetKeyState("w" , "P")
+            If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0)
+            {
+                Send, {RButton Down}
+                rDown=1
+            }
+        }
+
+        If (inputState=0) && (inBattle=1)
+            Send, {t}
+    }
 
 	If !WinActive("ahk_exe vermintide2.exe") && (rDown=1)
 	{
@@ -282,16 +319,10 @@ battleModeCheck:
 Return
 
 CustSkill:
-	If (weapon=1)
-	{
-		inBattle=0
-		Send, {RButton Up}
-		rDown=0
-	}
-	Send, {%skillKey% Down}
-	KeyWait, %skillKey%
-	Send, {%skillKey% Up}
+    normalButton(skillKey)
+    Sleep, 200
 	inBattle=1
+    weapon:=preWeapon
 Return
 
 WeaponSwitch()
@@ -308,7 +339,7 @@ WeaponSwitch()
 	{
 		weapon=1
 		Send, {1}
-		Sleep, 500
+		Sleep, 300
 		send, {RButton Down}
 		rDown=1
 	}

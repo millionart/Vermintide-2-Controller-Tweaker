@@ -8,8 +8,12 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ## Asian text chat | 亚洲文字聊天
 
-- Set game to window full mode | 必须设置游戏为窗口全屏模式
-- Chat only script | 仅有聊天功能的脚本 Vermintide 2 Chatbox.ahk
+- Automatic split long sentence sending | 自动拆分长句发送
+- Automatically replace missing text | 自动替换缺失文字
+- Set game to DX11 and window full mode | 必须设置游戏为 DX11 窗口全屏模式
+- Basic chat only script | 仅有基本聊天功能的脚本 Vermintide 2 Chatbox.ahk
+
+----
 
 ## New control method | 全新控制方式
 
@@ -25,7 +29,7 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 - Click to Fight back | 单击反击
 - Hold to force attack | 按住连续重击
 
-## Long-range weapon status | 远程武器
+## Long-range weapon status | 远程武器状态
 
 ### Left button | 左键
 
@@ -39,10 +43,10 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ## All status | 任何状态
 
-### F
+### Shift
 
-- Switch combat mode, all functions of this script are based on combat mode On state
-- 战斗模式开关，这个脚本的所有功能都基于战斗模式开启
+- Click Shift to run while move to forward with main weapon
+- 装备主武器并移动时点击 Shift 切换为跑步
 
 ### Wheel Down and Up | 鼠标滚轮
 
@@ -55,35 +59,29 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ### other | 其他
 
-- Selecting the item (button 2 3 4) will cancel the battle mode
-- 选择道具（按键 2 3 4），会取消战斗模式
+- Selecting the weapon (button 1 2) will switch to battle mode
+- 选择武器（按键 1 2），会进入战斗模式
 
 ----
 
 ## Install | 安装说明
 
-1. Change Game input in Game | 更改默认控制按键
-    - Weapon switch scroll type **loop**
-    - 武器切换页种类 **循环**
-    - Jump only **space**
-    - 只能跳跃 **空格键**
-    - Weapon quick swap **mouse wheel_up**
-    - 快速替换武器 **滚轮向上**
-    - Career skill **Q**
-    - 职业能力 **Q**
+1. Install [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) and run this script. | 安装 [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) 然后双击脚本运行。
+    - Script |  脚本名: Vermintide 2 Controller Tweaker.ahk
 
-2. Install [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) and run this script. | 安装 [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) 然后双击脚本运行。
-    - Script: Vermintide 2 Controller Tweaker.ahk
-    - 脚本名：Vermintide 2 Controller Tweaker.ahk
+2. After entering the level, press 1 to enter combat mode (you will see the character automatically start blocking) | 进入关卡后按一下 1 进入战斗模式（你会看到角色自动开始了格挡）
 
-## Optional | 可选
+3. (Recommend) Change Game input in Game | (推荐) 更改默认控制按键
 
-1. Change Game input in Game | 更改默认控制按键
-    - Double tap dodge **on**
-    - 双击闪避 **开启**
-    - Dodge only **shift**
-    - 仅闪避 **shift**
+    Item 项目|Default 默认值|Setto 设置为|说明
+    ----:|:----:|:----:|:----
+    Dodge only <br />仅闪避||**shift**|'Dodge only' set to Shift will trun on 'automatically dodge' mode<br />“仅闪避”设置为 Shift 将开启自动闪避模式
 
-2. Change FOV to 85 | 调整视野范围为 85
+## Note | 注意
+
+- The default skill key is F. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 1st line to the game corresponding key and save it in UTF-8 with BOM format.
+
+    默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 1 行 skillKey= 后面的字母改为游戏对应按键，并保存为 UTF-8 with BOM 格式
+
 
 ----

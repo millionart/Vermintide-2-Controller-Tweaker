@@ -1,19 +1,12 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 SetBatchLines -1
 ListLines Off
-; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-
 #SingleInstance, force
-;#NoTrayIcon
-inBattle=0
-inputState=0
-bGColor=FF00FF
-transparency=200
-title=ChatBoxTitle
-chatboxY:=A_ScreenHeight*0.89
-chatboxW:=A_ScreenWidth/A_ScreenDPI*16
+
+#Include, Initialization.ahk
 
 Menu, tray, NoStandard
 Menu, tray, add, 重置 | Reload, ReloadScrit
@@ -23,58 +16,45 @@ Menu, tray, add, 帮助 | Help, Help
 Menu, tray, add, 更新 | Ver 0.3, UpdateScrit
 Menu, tray, add, 退出 | Exit, ExitScrit
 
-
 Gui, +ToolWindow -Caption +AlwaysOnTop
 Gui, Color, %bGColor%
 gui, font, s12 cffffff
 Gui, Color, ,000000
-Gui, Add, Edit, x0 y0 w%chatboxW% h25 vChatBox Limit140
+Gui, Add, Edit, x0 y0 w%chatboxW% h25 vchatBox Limit140
 gui, font
 
-SetTimer, autoBlock, 500
+SetTimer, battleModeCheck, 200
+
+Hotkey, IfWinActive, ahk_exe vermintide2.exe
+		Hotkey, %skillKey%, CustSkill
+Hotkey, IfWinActive
+
+Return
 
 #IfWinActive, ahk_exe vermintide2.exe
-    Enter::
-        inputState:=inputState=0?1:0
-        inBattle=0
-        If (inputState=1)
+    ~Shift::
+        forwardKeyDown:=GetKeyState("w" , "P")
+        If (forwardKeyDown=1)
         {
-            Send, {Enter}
-            Gui, Show, w%chatboxW% h25 x0 y%chatboxY%, %title%
-            WinSet, TransColor, %bGColor% %transparency%, %title%
+            Send, {RButton Up}
+            rDown=0
+            ;inBattle=0
+            KeyWait, Shift
+            inBattle=1
         }
-        Else
-            normalButton("Enter")
     Return
 
-
-    f::
-        inBattle:=inBattle=1?0:1
-
-        If (inBattle=1)
-        {
-            Send, {1}
-            weapon=1
-            Sleep, 200
-            send, {RButton Down}
-        }
-
-        If (inBattle=0)
-            normalButton("f")
-    Return
-
-    Esc::
-        normalButton("Esc")
-        inputState=0
-    Return
-    
     1::
         weapon=1
+        inBattle=1
         Send, {1}
     Return
 
     2::
+        send, {RButton Up}
+        rDown=0
         weapon=2
+        inBattle=1
         Send, {2}
     Return
 
@@ -96,8 +76,10 @@ SetTimer, autoBlock, 500
         {
             SetTimer, checkRButton,Off
             send, {RButton Down}{LButton Down}
+            rDown=1
             KeyWait,LButton
             send, {RButton up}{LButton up}
+            rDown=0
         }
     Return
 
@@ -112,16 +94,18 @@ SetTimer, autoBlock, 500
             If (lButton=1)
             {
                 send, {RButton Up}
+                rDown=0
                 Loop,
                 {
                     send, {LButton}
-                    Random, clickIntervals , 100, 300
+                    Random, clickIntervals , 100, 150
                     sleep, %clickIntervals%
                     lButton:=GetKeyState("LButton" , "P")
                 }Until lButton=0
             }
 
             Send, {RButton Down}
+            rDown=1
         }
 
         If (weapon=2)
@@ -131,18 +115,16 @@ SetTimer, autoBlock, 500
             If (rButton=0)
             {
                 send, {RButton Down}
+                rDown=1
                 KeyWait, LButton
                 send, {LButton}
                 send, {RButton Up}
+                rDown=0
             }
         }
     }
     Else
-    {
-        Send, {LButton Down}
-        KeyWait, LButton
-        Send, {LButton Up}
-    }
+        normalButton("LButton")
     Return
 
     RButton::
@@ -156,6 +138,7 @@ SetTimer, autoBlock, 500
             If (rButton=1)
             {
                 Send, {RButton Up}
+                rDown=0
                 loop,
                 {
                 Send, {LButton Down}
@@ -176,64 +159,35 @@ SetTimer, autoBlock, 500
                 Loop
                 {
                     Send, {LButton}
-                    Random, clickIntervals , 100, 300
+                    Random, clickIntervals , 100, 150
                     sleep, %clickIntervals%
                     rButton:=GetKeyState("RButton" , "P")
                 }Until rButton=0
             }
             Else
+            {
                 send, {RButton Up}
+                rDown=0
+            }
         }
-
     }
     Else
     {
-        Send, {RButton Down}
-        KeyWait, RButton
-        Send, {RButton Up}
+        normalButton("RButton")
+        rDown=0
     }
     Return
 
     WheelUp::
     If (inBattle=1)
-    {
-
-        If (weapon=1)
-        {
-            send, {RButton Up}
-            weapon=2
-            Send, {2}
-        }
-        else
-        {
-            weapon=1
-            Send, {1}
-            Sleep, 500
-            send, {RButton Down}
-        }
-    }
+		WeaponSwitch()
     Else
         Send, {WheelUp}
     Return
 
     WheelDown::
     If (inBattle=1)
-    {
-
-        If (weapon=1)
-        {
-            send, {RButton Up}
-            weapon=2
-            Send, {2}
-        }
-        else
-        {
-            weapon=1
-            Send, {1}
-            Sleep, 500
-            send, {RButton Down}
-        }
-    }
+		WeaponSwitch()
     Else
         Send, {WheelDown}
     Return
@@ -256,129 +210,108 @@ SetTimer, autoBlock, 500
         }
     }
     Else
-        Send, {p}
+        normalButton("p")
     Return
-
-    i::
-    normalButton("i")
-    Return
-
-    h::
-    normalButton("h")
-    Return
-
-    m::
-    normalButton("m")
-    Return
-
-    /*
-    a::
-    If (inBattle=1)
-    {
-        Send, {a Down}{Shift}
-        KeyWait, a
-        Send, {a Up}
-    }
-    Else
-    {
-        Send, {a Down}
-        KeyWait, a
-        Send, {a Up}
-    }
 
     s::
     If (inBattle=1)
     {
         Send, {s Down}{Shift}
         KeyWait, s
+        ;SetTimer,Dodge,Off
         Send, {s Up}
     }
     Else
+        normalButton("s")
+    Return
+/*
+    a::
+    If (inBattle=1)
     {
-        Send, {s Down}
-        KeyWait, s
-        Send, {s Up}
+        Send, {a Down}{Shift}
+        dodgekey=a
+        SetTimer,Dodge,500
+        KeyWait, a
+        ;SetTimer,Dodge,Off
+        Send, {a Up}
     }
-
+    Else
+        normalButton("a")
+    Return
     d::
     If (inBattle=1)
     {
         Send, {d Down}{Shift}
+        dodgekey=d
+        SetTimer,Dodge,500
         KeyWait, d
+        ;SetTimer,Dodge,Off
         Send, {d Up}
     }
     Else
-    {
-        Send, {d Down}
-        KeyWait, d
-        Send, {d Up}
-    }
-*/
-#IfWinActive
-
-#IfWinActive, ChatBoxTitle
-    Enter::
-    Gui Submit
-    ;Gui, Show, Hide
-    WinActive("ahk_exe vermintide2.exe")
-    WinWaitActive, ahk_exe vermintide2.exe
-    If (ChatBox!="")
-    {
-        Send, %ChatBox%
-        Sleep, 100
-    }
-    Send, {Enter}
-    GuiControl, Text, ChatBox,
-    inputState=0
+        normalButton("d")
     Return
-
-    Esc::
-    Gui Cancel
-    WinActive("ahk_exe vermintide2.exe")
-    WinWaitActive, ahk_exe vermintide2.exe
-
-    Send, {Enter}
-    ;GuiControl, Text, ChatBox,
-    inputState=0
-
+    */
 #IfWinActive
+
+battleModeCheck:
+	If WinExist("ChatBoxTitle") && !WinActive("ChatBoxTitle")
+	{
+		WinActive("ChatBoxTitle")
+		Gui Cancel
+	}
+
+	If WinActive("ahk_exe vermintide2.exe") && (inBattle=1) && (weapon=1)
+	{
+		lButton:=GetKeyState("LButton" , "P")
+		rButton:=GetKeyState("RButton" , "P")
+		shiftKeyDown:=GetKeyState("Shift" , "P")
+		forwardKeyDown:=GetKeyState("w" , "P")
+		If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0)
+		{
+			Send, {RButton Down}
+			rDown=1
+		}
+	}
+
+	If !WinActive("ahk_exe vermintide2.exe") && (rDown=1)
+	{
+		Send, {RButton Up}
+		rDown=0
+	}
 Return
 
-ReloadScrit:
-Reload
+CustSkill:
+	If (weapon=1)
+	{
+		inBattle=0
+		Send, {RButton Up}
+		rDown=0
+	}
+	Send, {%skillKey% Down}
+	KeyWait, %skillKey%
+	Send, {%skillKey% Up}
+	inBattle=1
 Return
 
-autoBlock:
-If WinActive("ahk_exe vermintide2.exe") && (inBattle=1) && (weapon=1)
+WeaponSwitch()
 {
-    lButton:=GetKeyState("LButton" , "P")
-    rButton:=GetKeyState("RButton" , "P")
-    If (lButton=0) && (rButton=0)
-        Send, {RButton Down}
+	global
+	If (weapon=1)
+	{
+		send, {RButton Up}
+		rDown=0
+		weapon=2
+		Send, {2}
+	}
+	else
+	{
+		weapon=1
+		Send, {1}
+		Sleep, 500
+		send, {RButton Down}
+		rDown=1
+	}
 }
-Return
 
-PauseScrit:
-Pause, Toggle, 1
-Return
-
-UpdateScrit:
-Run, https://github.com/millionart/Vermintide-2-Controller-Tweaker/releases
-Return
-
-Help:
-Run, https://github.com/millionart/Vermintide-2-Controller-Tweaker
-Return
-
-ExitScrit:
-ExitApp
-Return
-
-normalButton(key)
-{
-    global
-    inBattle=0
-    weapon=0
-    send, {RButton Up}
-    Send, {%key%}
-}
+#Include, Handle.ahk

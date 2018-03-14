@@ -37,7 +37,7 @@
     Return
 
     f6::
-    FastWord("f6","老哥666")
+    FastWord("f6","666")
     Return
 
     f11::
@@ -138,19 +138,24 @@ ReplaceMissingText(vName)
 {
 	%vName%:=StrReplace(%vName%, "," , "`,")
 	%vName%:=StrReplace(%vName%, ";" , "`;")
-    %vName%:=StrReplace(%vName%, "霞" , "xiá")
-    %vName%:=StrReplace(%vName%, "贤" , "xián")
+	%vName%:=StrReplace(%vName%, "." , "`.")
+    %vName%:=StrReplace(%vName%, "霞" , "侠")
+    %vName%:=StrReplace(%vName%, "贤" , "闲")
     %vName%:=StrReplace(%vName%, "腼" , "勉")
     %vName%:=StrReplace(%vName%, "棉" , "绵")
     %vName%:=StrReplace(%vName%, "腆" , "填")
 	%vName%:=StrReplace(%vName%, "屌" , "吊")
+    %vName%:=StrReplace(%vName%, "艹" , "草")
+    %vName%:=StrReplace(%vName%, "凹" , "奥")
+    %vName%:=StrReplace(%vName%, "凸" , "突")
 }
 
 FastWord(keyName,String)
 {
-	global fastWordStr
+	global
     if (A_PriorHotkey <> keyName or A_TimeSincePriorHotkey > 1000)
     {
+        inputState=1
 		fastWordStr=%String%
 		ReplaceMissingText("fastWordStr")
         Send, {Enter}
@@ -158,6 +163,7 @@ FastWord(keyName,String)
         Send, {Text}%fastWordStr%
         Sleep, 100
         Send, {Enter}
+        inputState=0
     }
 }
 

@@ -6,7 +6,7 @@ skillKey=f
 ; Chat word limit 聊天字数限制
 chatboxMaxLength=10
 ver=0.5
-inBattle=1
+inBattle=0
 inputState=0
 bGColor=FF00FF
 transparency=200

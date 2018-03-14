@@ -26,7 +26,7 @@ gui, font
 SetTimer, battleModeCheck, 200
 
 Hotkey, IfWinActive, ahk_exe vermintide2.exe
-		Hotkey, %skillKey%, CustSkill
+	Hotkey, %skillKey%, CustSkill
 Hotkey, IfWinActive
 
 Return
@@ -68,19 +68,6 @@ Return
 
     5::
         normalButton("5")
-    Return
-
-    checkRButton:
-        rButton:=GetKeyState("rButton" , "P")
-        If (rButton=1)
-        {
-            SetTimer, checkRButton,Off
-            send, {RButton Down}{LButton Down}
-            rDown=1
-            KeyWait,LButton
-            send, {RButton up}{LButton up}
-            rDown=0
-        }
     Return
 
     LButton::
@@ -186,18 +173,6 @@ Return
         Send, {WheelDown}
     Return
 
-    e::
-    If (inputState=1)
-        normalButton("e")
-    Else
-    {
-    Send, {e Down}
-    KeyWait, e
-    Send, {e Up}
-    send, {t}
-    }
-    Return
-
     t::
     If (inputState=1)
         normalButton("e")
@@ -255,45 +230,41 @@ Return
     Else
         normalButton("s")
     Return
-/*
-    a::
-    If (inBattle=1)
-    {
-        Send, {a Down}{Shift}
-        dodgekey=a
-        SetTimer,Dodge,500
-        KeyWait, a
-        ;SetTimer,Dodge,Off
-        Send, {a Up}
-    }
-    Else
-        normalButton("a")
-    Return
-    d::
-    If (inBattle=1)
-    {
-        Send, {d Down}{Shift}
-        dodgekey=d
-        SetTimer,Dodge,500
-        KeyWait, d
-        ;SetTimer,Dodge,Off
-        Send, {d Up}
-    }
-    Else
-        normalButton("d")
-    Return
-    */
 #IfWinActive
 
 battleModeCheck:
-	If WinExist("ChatBoxTitle") && !WinActive("ChatBoxTitle")
-	{
-		WinActive("ChatBoxTitle")
-		Gui Cancel
-	}
-
 	If WinActive("ahk_exe vermintide2.exe")
     {
+        dpiRatio:=A_ScreenDPI/96
+        PixelGetColor, sightTopLeft, A_ScreenWidth/2/dpiRatio, A_ScreenHeight/2/dpiRatio, RGB Slow
+        StartingPos=3
+        Loop, 3
+        {
+            sightTopLeft%A_Index%:= SubStr(sightTopLeft, StartingPos, 2)
+            sightTopLeft%A_Index%:="0x" . sightTopLeft%A_Index%
+            StartingPos:=StartingPos+2
+        }
+        sightTopLeftR:=Format("{1:u}", sightTopLeft1)
+        sightTopLeftG:=Format("{1:u}", sightTopLeft2)
+        sightTopLeftB:=Format("{1:u}", sightTopLeft3)
+        sightTopLeftLight:=sightTopLeftR*0.30+sightTopLeftG*0.59+sightTopLeftB*0.11
+
+        x:=A_ScreenWidth/2
+        y:=A_ScreenHeight/2
+        ToolTip,%sightTopLeftLight% %x% %y%,0,0,2
+        If (sightTopLeftLight>165)
+        {
+            inBattle=1
+            If (weapon=0)
+                weapon:=preWeapon
+        }
+        
+        If (sightTopLeft=0)
+        {
+            inBattle=0
+            weapon=1
+        }
+
         If (inBattle=1) && (weapon=1)
         {
             lButton:=GetKeyState("LButton" , "P")
@@ -309,13 +280,26 @@ battleModeCheck:
 
         If (inputState=0) && (inBattle=1)
             Send, {t}
+
+        If (inBattle=0)
+            ToolTip, Normal mode, A_ScreenWidth, 0
+        Else
+            ToolTip
     }
 
 	If !WinActive("ahk_exe vermintide2.exe") && (rDown=1)
 	{
 		Send, {RButton Up}
 		rDown=0
+        ToolTip
 	}
+
+	If WinExist("ChatBoxTitle") && !WinActive("ChatBoxTitle")
+	{
+		WinActive("ChatBoxTitle")
+		Gui Cancel
+	}
+
 Return
 
 CustSkill:
@@ -323,6 +307,19 @@ CustSkill:
     Sleep, 200
 	inBattle=1
     weapon:=preWeapon
+Return
+
+checkRButton:
+    rButton:=GetKeyState("rButton" , "P")
+    If (rButton=1)
+    {
+        SetTimer, checkRButton,Off
+        send, {RButton Down}{LButton Down}
+        rDown=1
+        KeyWait,LButton
+        send, {RButton up}{LButton up}
+        rDown=0
+    }
 Return
 
 WeaponSwitch()

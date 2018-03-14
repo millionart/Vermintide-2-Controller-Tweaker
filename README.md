@@ -54,7 +54,7 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ### P
 
-- Teammate control will cancel combat mode
+- Teammate control will cancel battle mode
 - 队友控制功能，会取消战斗模式
 
 ### other | 其他
@@ -66,10 +66,21 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ## Install | 安装说明
 
-1. Install [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) and run this script. | 安装 [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) 然后双击脚本运行。
-    - Script |  脚本名: Vermintide 2 Controller Tweaker.ahk
+1. Install [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) and run this script.
 
-2. After entering the level, press 1 to enter combat mode (you will see the character automatically start blocking) | 进入关卡后按一下 1 进入战斗模式（你会看到角色自动开始了格挡）
+    安装 [Autohotkey](https://www.autohotkey.com/download/ahk-install.exe) 然后双击脚本运行。
+
+    - Script |  脚本名:
+
+        Vermintide 2 Controller Tweaker.ahk
+
+2. After entering the level | 进入关卡后
+
+    - press 1 to enter battle mode, __you will see that the Normal mode in the upper right corner disappears__
+    - press esc back to normal mode
+
+    - 按一下 1 进入战斗模式，__你会看到右上角的 Normal mode 消失了__
+    - 按一下 esc 回到普通模式
 
 3. (Recommend) Change Game input in Game | (推荐) 更改默认控制按键
 
@@ -79,9 +90,9 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ## Note | 注意
 
-- The default skill key is F. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 1st line to the game corresponding key and save it in UTF-8 with BOM format.
+- The default skill key is F. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 1st line to the game corresponding key and save it in UTF-8 with BOM format (then run script again).
 
-    默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 1 行 skillKey= 后面的字母改为游戏对应按键，并保存为 UTF-8 with BOM 格式
+    默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 1 行 skillKey= 后面的字母改为游戏对应按键，并保存为 UTF-8 with BOM 格式（然后重新执行脚本）
 
 
 ----

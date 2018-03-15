@@ -90,9 +90,36 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 
 ## Note | 注意
 
-- The default skill key is F. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 1st line to the game corresponding key and save it in UTF-8 with BOM format (then run script again).
+- The default skill key is F. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 2nd line to the game corresponding key and save it (then run script again).
 
-    默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 1 行 skillKey= 后面的字母改为游戏对应按键，并保存为 UTF-8 with BOM 格式（然后重新执行脚本）
+    默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 2 行 skillKey= 后面的字母改为游戏对应按键，并保存（然后重新执行脚本）
 
+- The Chatbox defaults to 1680x1050. If you need to change it, please edit the ScreenWidth and screenHeight values of Initialization.ahk to the corresponding resolution width and height.
 
+    聊天对话框默认适配 1680x1050 Initialization.ahk 的 screenWidth 和 screenHeight 改为对应分辨率宽高
+
+- Windows 10 with high DPI display mast get the value of 'Change the size of text, apps, and other items', you can find it in above:
+    1. Right-click anywhere on the Desktop
+    1. Select __Display Settings__ from the menu, You will see it
+    1. Edit Initialization.ahk to change the value after TAOsize= to the corresponding number (without the % sign)
+
+    拥有高 DPI 显示设备的 Windows 10 系统需要获得 “更改文本、应用和其他项目的大小” 的值，你可以在这里找到它：
+    1. 在桌面空白地方点击桌面
+    1. 从菜单中选择"显示设置“，你会在界面中看到这个选项
+    1. 编辑 Initialization.ahk，将 TAOsize= 后面的值改为对应数字（不带 % 号）
+
+- 在1709系统上有可能出现发送文字是问号的问题
+
+    解决方法：
+
+    - 已运行脚本和游戏的情况：
+        按回车进入输入状态，用鼠标点一下游戏界面，会发现输入工具界面消失了
+        win+空格切换到中文输入法，按回车，发现游戏输入界面消失了
+        再次按回车，现在输入工具可以正常发送中文了
+
+    - 未运行脚本的情况：
+        游戏界面中按回车进入输入状态，win+空格切换到中文输入法，按回车，发现游戏输入界面消失了
+        运行输入工具，可以正常发送中文了
+
+    正在寻找办法自动来处理这个步骤
 ----

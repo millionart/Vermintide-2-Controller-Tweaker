@@ -7,7 +7,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, force
 
 #Include, Initialization.ahk
-ResolutionAdaptation("screenWidth","screenHeight")
+ResolutionAdaptation(screenWidth,screenHeight)
 
 If (A_IsUnicode!=1)
 {
@@ -292,7 +292,7 @@ battleModeCheck:
             hwnd := WinExist("ahk_class tooltips_class32")
             WinSet, Trans, 90, % "ahk_id" hwnd
         }
-        ToolTip,%sightTopLeftLight% %screenCenterX% %screenCenterY% %A_ScreenWidth% %A_ScreenHeight%, 0, 0, 1
+        ;ToolTip,%sightTopLeftLight% %screenCenterX% %screenCenterY% %A_ScreenWidth% %A_ScreenHeight%, 0, 0, 1
     }
 
 	If !WinActive("ahk_exe vermintide2.exe")

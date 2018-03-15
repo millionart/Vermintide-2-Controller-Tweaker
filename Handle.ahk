@@ -195,69 +195,112 @@ ResolutionAdaptation(width,height)
     chatBoxY:=A_ScreenHeight*0.805
     chatBoxW:=A_ScreenWidth/dpiRatio*0.2
 
-    If (%width%=1280)
+    If (width=1768)
     {
-        chatBoxW:=160*dpiRatio/TAOsize*10
+        chatBoxX=65
     }
 
-    If (%height%=1024)
+    If (height=992)
     {
-        chatBoxX:=45*dpiRatio/TAOsize*10
-        chatBoxY:=865*dpiRatio/TAOsize*10
+        chatBoxW=440
+        chatBoxY=780
     }
 
-    If (%width%=1680)
+    If (width=1280) && (height=1024)
     {
-        chatBoxW:=210*dpiRatio/TAOsize*10
+        chatBoxW=320
+        chatBoxX=45
+        chatBoxY=865
     }
 
-    If (%height%=1050)
+    If (width=1680)
+        chatBoxX=60
+
+    If (height=1050)
     {
-        chatBoxX:=60*dpiRatio/TAOsize*10
-        chatBoxY:=850*dpiRatio/TAOsize*10
+        chatBoxW=420
+        chatBoxY=850
     }
 
-    If (%width%=1600)
+    If (width=2048)
     {
-        chatBoxW:=160*dpiRatio/TAOsize*10
+        chatBoxW=210
     }
 
-    If (%height%=1200)
+    If (height=1536)
     {
-        chatBoxX:=45*dpiRatio/TAOsize*10
-        chatBoxY:=800*dpiRatio/TAOsize*10
+        chatBoxX=60
+        chatBoxY=1155
     }
 
-    If (%width%=1920)
+    If (width=1920) 
+        chatBoxX=70
+
+    If (height=1080)
     {
-        chatBoxW:=190*dpiRatio/TAOsize*10
+        chatBoxW=480
+        chatBoxY=850
+    }
+    If (width=2560) 
+        chatBoxX=390
+
+    If (height=1440)
+    {
+        chatBoxW=480
+        chatBoxY=1210
     }
 
-    If (%height%=1080)
+    If (height=1600)
     {
-        chatBoxX:=60*dpiRatio/TAOsize*10
-        chatBoxY:=1080*dpiRatio/TAOsize*10
+        chatBoxX=70
+        chatBoxY=1355
     }
 
-    If (%width%=2048)
+    If (width=1680)
+        chatBoxX=60
+
+    If (width=1440)
+        chatBoxX=55
+
+    If (height=900)
     {
-        chatBoxW:=210*dpiRatio/TAOsize*10
+        chatBoxW=360
+        chatBoxY=725
     }
 
-    If (%height%=1536)
+    If (height=1200)
     {
-        chatBoxX:=60*dpiRatio/TAOsize*10
-        chatBoxY:=1155*dpiRatio/TAOsize*10
+        chatBoxW=480
+        chatBoxY=970
     }
 
-    If (%width%=2560)
+    If (width=1600) && (height=1024)
     {
-        chatBoxW:=240*dpiRatio/TAOsize*10
+        chatBoxW=400
+        chatBoxX=55
+        chatBoxY=830
     }
 
-    If (%height%=1600)
+    If (width=1600) && (height=1200)
     {
-        chatBoxX:=70*dpiRatio/TAOsize*10
-        chatBoxY:=1355*dpiRatio/TAOsize*10
+        chatBoxY=1005
     }
+
+    If (width=1600) && (height=900)
+    {
+        chatBoxY=705
+    }
+    If (width=1366) && (height=768)
+    {
+        chatBoxW=340
+        chatBoxX=50
+        chatBoxY=600
+    }
+    If (width=1360) && (height=768)
+    {
+        chatBoxW=340
+        chatBoxX=50
+        chatBoxY=600
+    }
+    ;ToolTip,%width% %height% %chatBoxW% %chatBoxX% %chatBoxY%
 }

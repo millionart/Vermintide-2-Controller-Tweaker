@@ -7,6 +7,13 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, force
 
 #Include, Initialization.ahk
+ResolutionAdaptation("screenWidth","screenHeight")
+
+If (A_IsUnicode!=1)
+{
+    MsgBox, "Error, file is not Unicode!"
+    ExitApp
+}
 
 Menu, tray, NoStandard
 Menu, tray, add, 重置 | Reload, ReloadScrit
@@ -235,23 +242,17 @@ Return
 battleModeCheck:
 	If WinActive("ahk_exe vermintide2.exe")
     {
-        dpiRatio:=A_ScreenDPI/96
         PixelGetColor, sightTopLeft, A_ScreenWidth/2/dpiRatio, A_ScreenHeight/2/dpiRatio, RGB Slow
         StartingPos=3
         Loop, 3
         {
             sightTopLeft%A_Index%:= SubStr(sightTopLeft, StartingPos, 2)
-            sightTopLeft%A_Index%:="0x" . sightTopLeft%A_Index%
+            sightTopLeft%A_Index%:=Format("{1:u}", "0x" . sightTopLeft%A_Index%)
             StartingPos:=StartingPos+2
         }
-        sightTopLeftR:=Format("{1:u}", sightTopLeft1)
-        sightTopLeftG:=Format("{1:u}", sightTopLeft2)
-        sightTopLeftB:=Format("{1:u}", sightTopLeft3)
-        sightTopLeftLight:=sightTopLeftR*0.30+sightTopLeftG*0.59+sightTopLeftB*0.11
+        sightTopLeftLight:=Round(sightTopLeft1*0.30+sightTopLeft2*0.59+sightTopLeft3*0.11, 0)
+        
 
-        x:=A_ScreenWidth/2
-        y:=A_ScreenHeight/2
-        ToolTip,%sightTopLeftLight% %x% %y%,0,0,2
         If (sightTopLeftLight>165)
         {
             inBattle=1
@@ -282,16 +283,26 @@ battleModeCheck:
             Send, {t}
 
         If (inBattle=0)
-            ToolTip, Normal mode, A_ScreenWidth, 0
+        {
+            ToolTip, Normal mode | %A_Hour%:%A_Min%, A_ScreenWidth, A_ScreenHeight,20
+        }
         Else
-            ToolTip
+        {
+            ToolTip, %A_Hour%:%A_Min%, A_ScreenWidth, A_ScreenHeight,20
+            hwnd := WinExist("ahk_class tooltips_class32")
+            WinSet, Trans, 90, % "ahk_id" hwnd
+        }
+        ToolTip,%sightTopLeftLight% %screenCenterX% %screenCenterY% %A_ScreenWidth% %A_ScreenHeight%, 0, 0, 1
     }
 
-	If !WinActive("ahk_exe vermintide2.exe") && (rDown=1)
+	If !WinActive("ahk_exe vermintide2.exe")
 	{
-		Send, {RButton Up}
-		rDown=0
-        ToolTip
+        If (rDown=1)
+        {
+            Send, {RButton Up}
+            rDown=0
+        }
+        ToolTip,,,,20
 	}
 
 	If WinExist("ChatBoxTitle") && !WinActive("ChatBoxTitle")
@@ -299,7 +310,6 @@ battleModeCheck:
 		WinActive("ChatBoxTitle")
 		Gui Cancel
 	}
-
 Return
 
 CustSkill:
@@ -329,13 +339,13 @@ WeaponSwitch()
 	{
 		send, {RButton Up}
 		rDown=0
-		weapon=2
 		Send, {2}
+		weapon=2
 	}
 	else
 	{
-		weapon=1
 		Send, {1}
+		weapon=1
 		Sleep, 300
 		send, {RButton Down}
 		rDown=1

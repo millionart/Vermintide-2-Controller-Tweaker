@@ -6,8 +6,20 @@
         Send, {Enter}
         If (inputState=1)
         {
-            Gui, Show, w%chatBoxW% h25 x0 y%chatBoxY%, %title%
+            Gui, Show, w%chatBoxW% h25 x%chatBoxX% y%chatBoxY%, %title%
             WinSet, TransColor, %bGColor% %transparency%, %title%
+        }
+    Return
+
+    /::
+        inputState:=inputState=1?0:1
+        inBattle=0
+        Send, {Enter}
+        If (inputState=1)
+        {
+            Gui, Show, w%chatBoxW% h25 x%chatBoxX% y%chatBoxY%, %title%
+            WinSet, TransColor, %bGColor% %transparency%, %title%
+            Send, {text}/
         }
     Return
 
@@ -136,6 +148,7 @@ normalButton(key)
 
 ReplaceMissingText(vName)
 {
+    %vName%:=StrReplace(%vName%, "/time" , A_Hour A_Min)
 	%vName%:=StrReplace(%vName%, "," , "`,")
 	%vName%:=StrReplace(%vName%, ";" , "`;")
 	%vName%:=StrReplace(%vName%, "." , "`.")
@@ -167,3 +180,84 @@ FastWord(keyName,String)
     }
 }
 
+ResolutionAdaptation(width,height)
+{
+    global
+    TAOsize:=TAOsize/10
+
+    If (TAOsize>10)
+        dpiRatio:=A_ScreenDPI/96
+    Else
+        dpiRatio:=1
+
+    ;dpiRatio:=A_ScreenDPI/96
+    chatBoxX:=A_ScreenWidth*0.035
+    chatBoxY:=A_ScreenHeight*0.805
+    chatBoxW:=A_ScreenWidth/dpiRatio*0.2
+
+    If (%width%=1280)
+    {
+        chatBoxW:=160*dpiRatio/TAOsize*10
+    }
+
+    If (%height%=1024)
+    {
+        chatBoxX:=45*dpiRatio/TAOsize*10
+        chatBoxY:=865*dpiRatio/TAOsize*10
+    }
+
+    If (%width%=1680)
+    {
+        chatBoxW:=210*dpiRatio/TAOsize*10
+    }
+
+    If (%height%=1050)
+    {
+        chatBoxX:=60*dpiRatio/TAOsize*10
+        chatBoxY:=850*dpiRatio/TAOsize*10
+    }
+
+    If (%width%=1600)
+    {
+        chatBoxW:=160*dpiRatio/TAOsize*10
+    }
+
+    If (%height%=1200)
+    {
+        chatBoxX:=45*dpiRatio/TAOsize*10
+        chatBoxY:=800*dpiRatio/TAOsize*10
+    }
+
+    If (%width%=1920)
+    {
+        chatBoxW:=190*dpiRatio/TAOsize*10
+    }
+
+    If (%height%=1080)
+    {
+        chatBoxX:=60*dpiRatio/TAOsize*10
+        chatBoxY:=1080*dpiRatio/TAOsize*10
+    }
+
+    If (%width%=2048)
+    {
+        chatBoxW:=210*dpiRatio/TAOsize*10
+    }
+
+    If (%height%=1536)
+    {
+        chatBoxX:=60*dpiRatio/TAOsize*10
+        chatBoxY:=1155*dpiRatio/TAOsize*10
+    }
+
+    If (%width%=2560)
+    {
+        chatBoxW:=240*dpiRatio/TAOsize*10
+    }
+
+    If (%height%=1600)
+    {
+        chatBoxX:=70*dpiRatio/TAOsize*10
+        chatBoxY:=1355*dpiRatio/TAOsize*10
+    }
+}

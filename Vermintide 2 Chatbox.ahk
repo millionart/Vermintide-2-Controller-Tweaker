@@ -7,6 +7,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, force
 
 #Include, Initialization.ahk
+ResolutionAdaptation("screenWidth","screenHeight")
 
 Menu, tray, NoStandard
 Menu, tray, add, 重置 | Reload, ReloadScrit
@@ -16,7 +17,7 @@ Menu, tray, add, 帮助 | Help, Help
 Menu, tray, add, 更新 | Ver %ver%, UpdateScrit
 Menu, tray, add, 退出 | Exit, ExitScrit
 
-Gui, +ToolWindow -Caption +AlwaysOnTop
+Gui, +ToolWindow -Caption +AlwaysOnTop -DPIScale
 Gui, Color, %bGColor%
 gui, font, s12 cffffff
 Gui, Color, ,000000

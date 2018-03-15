@@ -242,6 +242,8 @@ Return
 battleModeCheck:
 	If WinActive("ahk_exe vermintide2.exe")
     {
+        DllCall("SendMessage", "UInt", (WinActive("ahk_exe vermintide2.exe")), "UInt", "80", "UInt", "1", "UInt", (DllCall("LoadKeyboardLayout", "Str", "00000804", "UInt", "257")))
+
         PixelGetColor, sightTopLeft, A_ScreenWidth/2/dpiRatio, A_ScreenHeight/2/dpiRatio, RGB Slow
         StartingPos=3
         Loop, 3
@@ -310,11 +312,11 @@ battleModeCheck:
 		WinActive("ChatBoxTitle")
 		Gui Cancel
 	}
+
 Return
 
 CustSkill:
     normalButton(skillKey)
-    Sleep, 200
 	inBattle=1
     weapon:=preWeapon
 Return

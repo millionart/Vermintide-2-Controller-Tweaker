@@ -183,14 +183,8 @@ FastWord(keyName,String)
 ResolutionAdaptation(width,height)
 {
     global
-    TAOsize:=TAOsize/10
 
-    If (TAOsize>10)
-        dpiRatio:=A_ScreenDPI/96
-    Else
-        dpiRatio:=1
-
-    ;dpiRatio:=A_ScreenDPI/96
+    dpiRatio:=A_ScreenDPI/96
     chatBoxX:=A_ScreenWidth*0.035
     chatBoxY:=A_ScreenHeight*0.805
     chatBoxW:=A_ScreenWidth/dpiRatio*0.2
@@ -214,12 +208,12 @@ ResolutionAdaptation(width,height)
     }
 
     If (width=1680)
-        chatBoxX=60
+        chatBoxX:=60*dpiRatio/TAOsize*100
 
     If (height=1050)
     {
-        chatBoxW=420
-        chatBoxY=850
+        chatBoxW:=420/TAOsize*100
+        chatBoxY:=850*dpiRatio/TAOsize*100
     }
 
     If (width=2048)
@@ -233,14 +227,15 @@ ResolutionAdaptation(width,height)
         chatBoxY=1155
     }
 
-    If (width=1920) 
-        chatBoxX=70
+    If (width=1920)
+        chatBoxX:=70*dpiRatio/TAOsize*100
 
     If (height=1080)
     {
-        chatBoxW=480
-        chatBoxY=850
+        chatBoxW:=480/TAOsize*100
+        chatBoxY:=850*dpiRatio/TAOsize*100
     }
+
     If (width=2560) 
         chatBoxX=390
 
@@ -255,9 +250,6 @@ ResolutionAdaptation(width,height)
         chatBoxX=70
         chatBoxY=1355
     }
-
-    If (width=1680)
-        chatBoxX=60
 
     If (width=1440)
         chatBoxX=55

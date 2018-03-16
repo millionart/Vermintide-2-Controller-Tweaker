@@ -31,6 +31,7 @@ TAOsize=100
 chatboxMaxLength=10
 ver=0.5
 inBattle=0
+item=0
 inputState=0
 bGColor=FF00FF
 transparency=200

@@ -52,6 +52,7 @@ Return
     Return
 
     1::
+        item=0
         weapon=1
         inBattle=1
         Send, {1}
@@ -60,20 +61,24 @@ Return
     2::
         send, {RButton Up}
         rDown=0
+        item=0
         weapon=2
         inBattle=1
         Send, {2}
     Return
 
     3::
+        item=1    
         normalButton("3")
     Return
 
     4::
+        item=1
         normalButton("4")
     Return
 
     5::
+        item=1
         normalButton("5")
     Return
 
@@ -255,7 +260,7 @@ battleModeCheck:
         sightTopLeftLight:=Round(sightTopLeft1*0.30+sightTopLeft2*0.59+sightTopLeft3*0.11, 0)
         
 
-        If (sightTopLeftLight>165)
+        If (sightTopLeftLight>165) && (item=0)
         {
             inBattle=1
             If (weapon=0)

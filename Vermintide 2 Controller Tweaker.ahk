@@ -75,7 +75,7 @@ Return
     Return
 
     3::
-        item=1    
+        item=1
         normalButton("3")
     Return
 
@@ -179,14 +179,14 @@ Return
     Return
 
     WheelUp::
-    If (inBattle=1)
+    If (inBattle=1) || (item=1)
 		WeaponSwitch()
     Else
         Send, {WheelUp}
     Return
 
     WheelDown::
-    If (inBattle=1)
+    If (inBattle=1) || (item=1)
 		WeaponSwitch()
     Else
         Send, {WheelDown}
@@ -235,7 +235,16 @@ Return
     Return
 
     m::
-    normalButton("m")
+    If (inBattle=1)
+    {
+        Send, {F10}
+        Sleep, 100
+        Send, {m Down}
+        KeyWait, m
+        Send, {m Up}
+    }
+    Else
+        normalButton("m")
     Return
 
     ~s::
@@ -348,6 +357,7 @@ Return
 WeaponSwitch()
 {
 	global
+    item=0
 	If (weapon=1)
 	{
 		send, {RButton Up}
@@ -359,9 +369,6 @@ WeaponSwitch()
 	{
 		Send, {1}
 		weapon=1
-		Sleep, 300
-		send, {RButton Down}
-		rDown=1
 	}
 }
 

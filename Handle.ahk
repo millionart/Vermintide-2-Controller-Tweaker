@@ -4,7 +4,7 @@
         inputState:=inputState=1?0:1
         inBattle=0
         Send, {Enter}
-        If (inputState=1)
+        If (inputState=1) && (consoleMode=0)
         {
             Gui, Show, w%chatBoxW% h25 x%chatBoxX% y%chatBoxY%, %title%
             WinSet, TransColor, %bGColor% %transparency%, %title%
@@ -15,7 +15,7 @@
         inputState:=inputState=1?0:1
         inBattle=0
         Send, {Enter}
-        If (inputState=1)
+        If (inputState=1) && (consoleMode=0)
         {
             Gui, Show, w%chatBoxW% h25 x%chatBoxX% y%chatBoxY%, %title%
             WinSet, TransColor, %bGColor% %transparency%, %title%
@@ -26,6 +26,7 @@
     Esc::
         normalButton("Esc")
         inputState=0
+        consoleMode=0
     Return
 
     f1::
@@ -54,6 +55,7 @@
 
     f11::
         normalButton("f2")
+        consoleMode:=consoleMode=1?0:1
         inputState=1
     Return
 #IfWinActive
@@ -208,12 +210,12 @@ ResolutionAdaptation(width,height)
     }
 
     If (width=1680)
-        chatBoxX:=60*dpiRatio/TAOsize*100
+        chatBoxX:=60*dpiRatio*100/TAOsize
 
     If (height=1050)
     {
         chatBoxW:=420/TAOsize*100
-        chatBoxY:=850*dpiRatio/TAOsize*100
+        chatBoxY:=850*dpiRatio*100/TAOsize
     }
 
     If (width=2048)
@@ -228,12 +230,12 @@ ResolutionAdaptation(width,height)
     }
 
     If (width=1920)
-        chatBoxX:=70*dpiRatio/TAOsize*100
+        chatBoxX:=70*dpiRatio*100/TAOsize
 
     If (height=1080)
     {
         chatBoxW:=480/TAOsize*100
-        chatBoxY:=850*dpiRatio/TAOsize*100
+        chatBoxY:=850*dpiRatio*100/TAOsize
     }
 
     If (width=2560) 
@@ -296,3 +298,14 @@ ResolutionAdaptation(width,height)
     }
     ;ToolTip,%width% %height% %chatBoxW% %chatBoxX% %chatBoxY%
 }
+
+SetDefaultState:
+ver=0.5
+inBattle=0
+item=0
+inputState=0
+consoleMode=0
+bGColor=FF00FF
+transparency=200
+title=ChatBoxTitle
+Return

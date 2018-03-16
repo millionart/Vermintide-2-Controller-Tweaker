@@ -51,6 +51,13 @@ Return
         }
     Return
 
+    +Tab::
+        Send, {Shift Down}{Tab Down}
+        Sleep, 100
+        Send, {Shift Up}{Tab Up}
+        consoleMode:=consoleMode=1?0:1
+    Return
+
     1::
         item=0
         weapon=1
@@ -186,8 +193,8 @@ Return
     Return
 
     t::
-    If (inputState=1)
-        normalButton("e")
+    If (inputState=1) || (consoleMode=1) 
+        normalButton("t")
     Else
     {
         Loop, 
@@ -231,12 +238,11 @@ Return
     normalButton("m")
     Return
 
-    s::
+    ~s::
     If (inBattle=1)
     {
         Send, {s Down}{Shift}
         KeyWait, s
-        ;SetTimer,Dodge,Off
         Send, {s Up}
     }
     Else
@@ -286,7 +292,7 @@ battleModeCheck:
             }
         }
 
-        If (inputState=0) && (inBattle=1)
+        If (inputState=0) && (inBattle=1) && (consoleMode=0)
             Send, {t}
 
         If (inBattle=0)

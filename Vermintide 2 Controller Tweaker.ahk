@@ -130,7 +130,7 @@ Return
         normalButton("LButton")
     Return
 
-    RButton::
+    ~RButton::
     If (inBattle=1) && (weapon=1)
     {
         Send, {LButton}
@@ -157,13 +157,15 @@ Return
         lButton:=GetKeyState("LButton" , "P")
         If (lButton=0)
         {
+            send, {RButton Up}
+            rDown=0
             Loop
             {
                 Send, {LButton}
-                Random, clickIntervals , 100, 150
+                Random, clickIntervals , 47, 50
                 sleep, %clickIntervals%
                 rButton:=GetKeyState("RButton" , "P")
-            }Until rButton=0
+            } Until rButton=0
         }
         Else
         {

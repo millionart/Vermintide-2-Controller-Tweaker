@@ -32,10 +32,6 @@ gui, font
 
 SetTimer, battleModeCheck, 200
 
-Hotkey, IfWinActive, ahk_exe vermintide2.exe
-	Hotkey, %skillKey%, CustSkill
-Hotkey, IfWinActive
-
 Return
 
 #IfWinActive, ahk_exe vermintide2.exe
@@ -296,7 +292,8 @@ battleModeCheck:
             rButton:=GetKeyState("RButton" , "P")
             shiftKeyDown:=GetKeyState("Shift" , "P")
             forwardKeyDown:=GetKeyState("w" , "P")
-            If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0)
+            skillKeyDown:=GetKeyState(skillKey , "P")
+            If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0) && (skillKeyDown=0)
             {
                 Send, {RButton Down}
                 rDown=1
@@ -335,12 +332,6 @@ battleModeCheck:
 		Gui Cancel
 	}
 
-Return
-
-CustSkill:
-    normalButton(skillKey)
-	inBattle=1
-    weapon:=preWeapon
 Return
 
 checkRButton:

@@ -160,9 +160,10 @@ ReplaceMissingText(vName)
     %vName%:=StrReplace(%vName%, "棉" , "绵")
     %vName%:=StrReplace(%vName%, "腆" , "填")
 	%vName%:=StrReplace(%vName%, "屌" , "吊")
-    %vName%:=StrReplace(%vName%, "艹" , "草")
+    %vName%:=StrReplace(%vName%, "艹" , "槽")
     %vName%:=StrReplace(%vName%, "凹" , "奥")
     %vName%:=StrReplace(%vName%, "凸" , "突")
+    %vName%:=StrReplace(%vName%, "卧" , "喔")
 }
 
 FastWord(keyName,String)

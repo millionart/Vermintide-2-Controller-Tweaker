@@ -1,8 +1,8 @@
 # Vermintide 2 Controller Tweaker
 
-Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
+Control optimization tool for Steam game Warhammer: Vermintide 2
 
-仿守望先锋控制器，针对 Steam 游戏《战锤：末日鼠疫2》
+针对 Steam 游戏《战锤：末日鼠疫2》的操作优化工具
 
 ----
 
@@ -11,6 +11,7 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 - Automatic split long sentence sending | 自动拆分长句发送
 - Automatically replace missing text | 自动替换缺失文字
 - Set game to DX11 and window full mode | 必须设置游戏为 DX11 窗口全屏模式
+- Quick phrase function (F1~F6) | 快捷短语功能
 - Basic chat only script | 仅有基本聊天功能的脚本 Vermintide 2 Chatbox.ahk
 
 ----
@@ -93,6 +94,10 @@ Controller Tweaker like Overwatch for Steam game Warhammer: Vermintide 2
 - The default skill key is F. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 2nd line to the game corresponding key and save it (then run script again).
 
     默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 2 行 skillKey= 后面的字母改为游戏对应按键，并保存（然后重新执行脚本）
+
+- The quick phrase function occupies F5, F6, so it is recommended to change the voting key to Y, N, Console key has been automatically changed from F2 to F11
+
+    快捷短语功能占用了 F5、F6，因此建议将投票键更改为 Y、N，控制台按键已经自动由 F2 更换为 F11
 
 - The Chatbox defaults to 1680x1050. If you need to change it, please edit the ScreenWidth and screenHeight values of Initialization.ahk to the corresponding resolution width and height.
 

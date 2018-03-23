@@ -2,7 +2,7 @@
 #IfWinActive, ahk_exe vermintide2.exe
     Enter::
         inputState:=inputState=1?0:1
-        inBattle=0
+        inBattle:=0
         Send, {Enter}
         If (inputState=1) && (consoleMode=0)
         {
@@ -13,7 +13,7 @@
 
     /::
         inputState:=inputState=1?0:1
-        inBattle=0
+        inBattle:=0
         Send, {Enter}
         If (inputState=1) && (consoleMode=0)
         {
@@ -25,8 +25,10 @@
 
     Esc::
         normalButton("Esc")
-        inputState=0
-        consoleMode=0
+        inputState:=0
+        consoleMode:=0
+        gameUI:=0
+        inBattle:=1
     Return
 
     f1::
@@ -56,7 +58,7 @@
     f11::
         normalButton("f2")
         consoleMode:=consoleMode=1?0:1
-        inputState=1
+        inputState:=1
     Return
 #IfWinActive
 
@@ -102,7 +104,7 @@
     Else
         Send, {Enter}
     GuiControl, Text, chatBox,
-    inputState=0
+    inputState:=0
     Return
 
     Esc::
@@ -111,7 +113,7 @@
 
         Send, {Enter}
         ;GuiControl, Text, chatBox,
-        inputState=0
+        inputState:=0
     Return
 #IfWinActive
 
@@ -138,11 +140,12 @@ Return
 normalButton(key)
 {
     global
-    inBattle=0
-    preWeapon:=weapon
-    weapon=0
+    inBattle:=0
+    If (item!=1)
+        preWeapon:=weapon
+    weapon:=0
     send, {RButton Up}
-    rDown=0
+    rDown:=0
     Send, {%key% Down}
     KeyWait, %key%
     Send, {%key% Up}
@@ -171,7 +174,7 @@ FastWord(keyName,String)
 	global
     if (A_PriorHotkey <> keyName or A_TimeSincePriorHotkey > 1000)
     {
-        inputState=1
+        inputState:=1
 		fastWordStr=%String%
 		ReplaceMissingText("fastWordStr")
         Send, {Enter}
@@ -179,7 +182,7 @@ FastWord(keyName,String)
         Send, {Text}%fastWordStr%
         Sleep, 100
         Send, {Enter}
-        inputState=0
+        inputState:=0
     }
 }
 
@@ -301,12 +304,13 @@ ResolutionAdaptation(width,height)
 }
 
 SetDefaultState:
-ver=0.5
-inBattle=0
-item=0
-inputState=0
-consoleMode=0
-bGColor=FF00FF
-transparency=200
-title=ChatBoxTitle
+ver:=0.5
+inBattle:=0
+item:=0
+inputState:=0
+gameUI=0
+consoleMode:=0
+bGColor:="FF00FF"
+transparency:=200
+title:="ChatBoxTitle"
 Return

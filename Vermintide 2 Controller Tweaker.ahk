@@ -40,10 +40,10 @@ Return
         If (forwardKeyDown=1)
         {
             Send, {RButton Up}
-            rDown=0
-            ;inBattle=0
+            rDown:=0
+            ;inBattle:=0
             KeyWait, Shift
-            inBattle=1
+            inBattle:=1
         }
     Return
 
@@ -55,38 +55,47 @@ Return
     Return
 
     1::
-        item=0
-        weapon=1
-        inBattle=1
+    If (gameUI!=1)
+    {
+        item:=0
+        weapon:=1
+        inBattle:=1
         Send, {1}
+    }
     Return
 
     2::
+    If (gameUI!=1)
+    {
         send, {RButton Up}
-        rDown=0
-        item=0
-        weapon=2
-        inBattle=1
+        rDown:=0
+        item:=0
+        weapon:=2
+        inBattle:=1
         Send, {2}
+    }
     Return
 
     3::
-        item=1
         normalButton("3")
+        If (gameUI!=1)
+            item:=1
     Return
 
     4::
-        item=1
         normalButton("4")
+        If (gameUI!=1)
+            item:=1
     Return
 
     5::
-        item=1
         normalButton("5")
+        If (gameUI!=1)
+            item:=1
     Return
 
     LButton::
-    If (inBattle=1) && (weapon=1)
+    If (inBattle=1) && (weapon=1) && (gameUI=0)
     {
         send, {LButton}
         sleep,150
@@ -94,7 +103,7 @@ Return
         If (lButton=1)
         {
             send, {RButton Up}
-            rDown=0
+            rDown:=0
             Loop,
             {
                 send, {LButton}
@@ -105,29 +114,43 @@ Return
         }
 
         Send, {RButton Down}
-        rDown=1
+        rDown:=1
     }
     Else
-    If (inBattle=1) && (weapon=2)
+    If (inBattle=1) && (weapon=2) && (gameUI=0)
     {
         SetTimer, checkRButton,200
         rButton:=GetKeyState("rButton" , "P")
         If (rButton=0)
         {
             send, {RButton Down}
-            rDown=1
+            rDown:=1
             KeyWait, LButton
             send, {LButton}
             send, {RButton Up}
-            rDown=0
+            rDown:=0
         }
+    }
+    Else
+    If (inBattle=0) && (item=1) && (gameUI=0)
+    {
+        inBattle:=0
+        weapon:=0
+        send, {RButton Up}
+        rDown:=0
+        Send, {LButton Down}
+        KeyWait, LButton
+        Send, {LButton Up}
+        inBattle:=1
+        weapon:=preWeapon
+        item:=0
     }
     Else
         normalButton("LButton")
     Return
 
-    ~RButton::
-    If (inBattle=1) && (weapon=1)
+    RButton::
+    If (inBattle=1) && (weapon=1) && (gameUI=0)
     {
         Send, {LButton}
         Sleep, 200
@@ -135,7 +158,7 @@ Return
         If (rButton=1)
         {
             Send, {RButton Up}
-            rDown=0
+            rDown:=0
             loop,
             {
             Send, {LButton Down}
@@ -144,17 +167,16 @@ Return
             sleep,200
             rButton:=GetKeyState("RButton" , "P")
             }Until (rButton=0)
-
         }
     }
     Else
-    If (inBattle=1) && (weapon=2)
+    If (inBattle=0) && (weapon=2) && (gameUI=0)
     {
         lButton:=GetKeyState("LButton" , "P")
         If (lButton=0)
         {
             send, {RButton Up}
-            rDown=0
+            rDown:=0
             Loop
             {
                 Send, {LButton}
@@ -166,13 +188,27 @@ Return
         Else
         {
             send, {RButton Up}
-            rDown=0
+            rDown:=0
         }
+    }
+    Else
+    If (inBattle=0) && (item=1) && (gameUI=0)
+    {
+        inBattle:=0
+        weapon:=0
+        send, {RButton Up}
+        rDown:=0
+        Send, {RButton Down}
+        KeyWait, RButton
+        Send, {RButton Up}
+        inBattle:=1
+        weapon:=preWeapon
+        item:=0
     }
     Else
     {
         normalButton("RButton")
-        rDown=0
+        rDown:=0
     }
     Return
 
@@ -209,31 +245,36 @@ Return
         normalButton("p")
     Else
     {
-        If (tabUI=1)
+        If (gameUI=1)
         {
             Send, {Tab Up}
-            tabUI=0
+            gameUI:=0
         }
         
-        If (tabUI=0) || (tabUI="")
+        If (gameUI=0) || (gameUI="")
         {
-            inBattle=0
+            inBattle:=0
             Send, {Tab Down}{RButton}
-            tabUI=1
+            gameUI:=1
+            Send, {Tab Up}
         }
     }
     Return
 
     i::
-    normalButton("i")
+        normalButton("i")
+        gameUI:=1
     Return
 
     h::
-    normalButton("h")
+        normalButton("h")
+        gameUI:=1
     Return
 
     m::
-    If (inBattle=1)
+    If (inputState=1)
+        normalButton("p")
+    Else
     {
         Send, {F10}
         Sleep, 100
@@ -241,8 +282,6 @@ Return
         KeyWait, m
         Send, {m Up}
     }
-    Else
-        normalButton("m")
     Return
 
     ~s::
@@ -275,17 +314,16 @@ battleModeCheck:
 
         If (sightTopLeftLight>165) && (item=0)
         {
-            inBattle=1
+            inBattle:=1
             If (weapon=0)
                 weapon:=preWeapon
         }
         
         If (sightTopLeft=0)
         {
-            inBattle=0
-            weapon=1
+            inBattle:=0
+            weapon:=1
         }
-
         If (inBattle=1) && (weapon=1)
         {
             lButton:=GetKeyState("LButton" , "P")
@@ -296,7 +334,7 @@ battleModeCheck:
             If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0) && (skillKeyDown=0)
             {
                 Send, {RButton Down}
-                rDown=1
+                rDown:=1
             }
         }
 
@@ -313,7 +351,7 @@ battleModeCheck:
             hwnd := WinExist("ahk_class tooltips_class32")
             WinSet, Trans, 90, % "ahk_id" hwnd
         }
-        ;ToolTip,%sightTopLeftLight% %screenCenterX% %screenCenterY% %A_ScreenWidth% %A_ScreenHeight%, 0, 0, 1
+        ;ToolTip, %inBattle% %gameUI% %weapon% %preWeapon% %item%
     }
 
 	If !WinActive("ahk_exe vermintide2.exe")
@@ -321,7 +359,7 @@ battleModeCheck:
         If (rDown=1)
         {
             Send, {RButton Up}
-            rDown=0
+            rDown:=0
         }
         ToolTip,,,,20
 	}
@@ -340,28 +378,28 @@ checkRButton:
     {
         SetTimer, checkRButton,Off
         send, {RButton Down}{LButton Down}
-        rDown=1
+        rDown:=1
         KeyWait,LButton
         send, {RButton up}{LButton up}
-        rDown=0
+        rDown:=0
     }
 Return
 
 WeaponSwitch()
 {
 	global
-    item=0
+    item:=0
 	If (weapon=1)
 	{
 		send, {RButton Up}
-		rDown=0
+		rDown:=0
 		Send, {2}
-		weapon=2
+		weapon:=2
 	}
 	else
 	{
 		Send, {1}
-		weapon=1
+		weapon:=1
 	}
 }
 

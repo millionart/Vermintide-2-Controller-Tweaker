@@ -28,7 +28,10 @@
         inputState:=0
         consoleMode:=0
         gameUI:=0
-        inBattle:=1
+        heroUI:=0
+        mapsUI:=0
+        itemUI:=0
+        ;inBattle:=0
     Return
 
     f1::
@@ -140,10 +143,10 @@ Return
 normalButton(key)
 {
     global
-    inBattle:=0
+    ;inBattle:=0
     If (item!=1)
         preWeapon:=weapon
-    weapon:=0
+    ;weapon:=0
     send, {RButton Up}
     rDown:=0
     Send, {%key% Down}
@@ -167,23 +170,29 @@ ReplaceMissingText(vName)
     %vName%:=StrReplace(%vName%, "凹" , "奥")
     %vName%:=StrReplace(%vName%, "凸" , "突")
     %vName%:=StrReplace(%vName%, "卧" , "喔")
+    %vName%:=StrReplace(%vName%, "桃" , "陶")
 }
 
 FastWord(keyName,String)
 {
 	global
-    if (A_PriorHotkey <> keyName or A_TimeSincePriorHotkey > 1000)
+    If (voteUI=0)
     {
-        inputState:=1
-		fastWordStr=%String%
-		ReplaceMissingText("fastWordStr")
-        Send, {Enter}
-        Sleep, 100
-        Send, {Text}%fastWordStr%
-        Sleep, 100
-        Send, {Enter}
-        inputState:=0
+        if (A_PriorHotkey <> keyName or A_TimeSincePriorHotkey > 1000)
+        {
+            inputState:=1
+            fastWordStr=%String%
+            ReplaceMissingText("fastWordStr")
+            Send, {Enter}
+            Sleep, 100
+            Send, {Text}%fastWordStr%
+            Sleep, 100
+            Send, {Enter}
+            inputState:=0
+        }
     }
+    Else
+        Send, {%keyName%}
 }
 
 ResolutionAdaptation(width,height)
@@ -308,7 +317,7 @@ ver:=0.5
 inBattle:=0
 item:=0
 inputState:=0
-gameUI=0
+gameUI:=0
 consoleMode:=0
 bGColor:="FF00FF"
 transparency:=200

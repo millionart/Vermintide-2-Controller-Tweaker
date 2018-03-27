@@ -77,21 +77,21 @@ Return
     Return
 
     3::
-        normalButton("3")
         If (gameUI!=1)
             item:=1
+        normalButton("3")
     Return
 
     4::
-        normalButton("4")
         If (gameUI!=1)
             item:=1
+        normalButton("4")
     Return
 
     5::
-        normalButton("5")
         If (gameUI!=1)
             item:=1
+        normalButton("5")
     Return
 
     LButton::
@@ -262,25 +262,59 @@ Return
     Return
 
     i::
+        If (heroUI=1) || (mapsUI=1) && (itemUI=0)
+        {
+            Send, {Esc}
+            Sleep, 200
+            gameUI:=0
+        }
         normalButton("i")
-        gameUI:=1
+        If (inputState!=1)
+        {
+            gameUI:=gameUI=1?0:1
+            itemUI:=itemUI=1?0:1
+            heroUI:=0
+            mapsUI:=0
+        }
+
     Return
 
     h::
+        If (mapsUI=1) || (itemUI=1) && (heroUI=0)
+        {
+            Send, {Esc}
+            Sleep, 200
+            gameUI:=0
+        }
         normalButton("h")
-        gameUI:=1
+        If (inputState!=1)
+        {
+            itemUI:=0
+            heroUI:=heroUI=1?0:1
+            mapsUI:=0
+        }
     Return
 
     m::
     If (inputState=1)
-        normalButton("p")
+        normalButton("m")
     Else
     {
+        If (itemUI=1) || (heroUI=1) && (mapsUI=0)
+        {
+            Send, {Esc}
+            Sleep, 200
+            gameUI:=0
+        }
         Send, {F10}
         Sleep, 100
         Send, {m Down}
         KeyWait, m
         Send, {m Up}
+        gameUI:=gameUI=1?0:1
+        itemUI:=0
+        heroUI:=0
+        mapsUI:=mapsUI=1?0:1
     }
     Return
 
@@ -312,17 +346,31 @@ battleModeCheck:
         sightTopLeftLight:=Round(sightTopLeft1*0.30+sightTopLeft2*0.59+sightTopLeft3*0.11, 0)
         
 
-        If (sightTopLeftLight>165) && (item=0)
+        If (sightTopLeftLight>165) && (item=0) && (itemUI=0)
         {
             inBattle:=1
             If (weapon=0)
                 weapon:=preWeapon
+            voteUI:=0
+            gameUI:=0
         }
-        
+        Else
+        If (sightTopLeftLight<15)
+        {
+            voteUI:=1
+            inBattle:=0
+        }
+
+
         If (sightTopLeft=0)
         {
             inBattle:=0
             weapon:=1
+            item:=0
+            gameUI:=0
+            itemUI:=0
+            heroUI:=0
+            mapsUI:=0
         }
         If (inBattle=1) && (weapon=1)
         {
@@ -331,7 +379,7 @@ battleModeCheck:
             shiftKeyDown:=GetKeyState("Shift" , "P")
             forwardKeyDown:=GetKeyState("w" , "P")
             skillKeyDown:=GetKeyState(skillKey , "P")
-            If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0) && (skillKeyDown=0)
+            If (lButton=0) && (rButton=0) && (shiftKeyDown=0) && (forwardKeyDown=0) && (skillKeyDown=0) && (gameUI=0) && (item!=1)
             {
                 Send, {RButton Down}
                 rDown:=1
@@ -351,7 +399,6 @@ battleModeCheck:
             hwnd := WinExist("ahk_class tooltips_class32")
             WinSet, Trans, 90, % "ahk_id" hwnd
         }
-        ;ToolTip, %inBattle% %gameUI% %weapon% %preWeapon% %item%
     }
 
 	If !WinActive("ahk_exe vermintide2.exe")

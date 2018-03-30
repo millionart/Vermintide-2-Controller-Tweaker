@@ -59,8 +59,8 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 ### other | 其他
 
-- Selecting the weapon (button 1 2) will switch to battle mode
-- 选择武器（按键 1 2），会进入战斗模式
+- Selecting the weapon (button <kbd>1</kbd> <kbd>2</kbd>) will switch to battle mode
+- 选择武器（按键 <kbd>1</kbd> <kbd>2</kbd>），会进入战斗模式
 
 ----
 
@@ -80,11 +80,11 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 2. After entering the level | 进入关卡后
 
-    - press 1 to enter battle mode, __you will see that the Normal mode in the upper right corner disappears__.
-    - press esc restore to the default state.
+    - press <kbd>1</kbd> to enter battle mode, __you will see that the Normal mode in the upper right corner disappears__.
+    - press <kbd>Esc</kbd> restore to the default state.
 
-    - 按一下 1 进入战斗模式，__你会看到右上角的 Normal mode 消失了__。
-    - 按一下 esc 恢复默认状态。
+    - 按一下 <kbd>1</kbd> 进入战斗模式，__你会看到右上角的 Normal mode 消失了__。
+    - 按一下 <kbd>Esc</kbd> 恢复默认状态。
 
 3. The Chatbox defaults to 1680x1050. If you need to change it, please edit the ScreenWidth and screenHeight values of Initialization.ahk to the corresponding resolution width and height.
 
@@ -98,9 +98,9 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
     Item 项目|Default 默认值|Setto 设置为|说明
     ----:|:----:|:----:|:----
-    Dodge only <br />仅闪避||**shift**|'Dodge only' set to Shift will trun on 'automatically dodge' mode<br />“仅闪避”设置为 Shift 将开启自动闪避模式
-    Vote Yes<br />投票赞成|F5|**Y**|The quick phrase function occupies F5<br />快捷短语功能占用了 F5
-    Vote No<br />投票反对|F6|**N**|The quick phrase function occupies F6<br />快捷短语功能占用了 F6
+    Dodge only <br />仅闪避||**<kbd>Shift</kbd>**|'Dodge only' set to <kbd>Shift</kbd> will trun on 'automatically dodge' mode<br />“仅闪避”设置为 <kbd>Shift</kbd> 将开启自动闪避模式
+    Vote Yes<br />投票赞成|<kbd>F5</kbd>|**<kbd>Y</kbd>**|The quick phrase function occupies <kbd>F5</kbd><br />快捷短语功能占用了 <kbd>F5</kbd>
+    Vote No<br />投票反对|<kbd>F6</kbd>|**<kbd>N</kbd>**|The quick phrase function occupies <kbd>F6</kbd><br />快捷短语功能占用了 <kbd>F6</kbd>
 
 ----
 
@@ -110,9 +110,9 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
     默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 2 行 skillKey= 后面的字母改为游戏对应按键，并保存（然后重新执行脚本）。
 
-- The console key has been automatically changed from F2 to F11
+- The console key has been automatically changed from <kbd>F2</kbd> to <kbd>F11</kbd>
 
-    控制台按键已经自动由 F2 更换为 F11
+    控制台按键已经自动由 <kbd>F2</kbd> 更换为 <kbd>F11</kbd>
 
 - 在 Windows 10 1709 系统上有可能出现发送文字是问号的问题
 
@@ -120,11 +120,11 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
     - **运行脚本和游戏后：**
 
-        1. 游戏界面中按回车进入输入状态
-        2. 用鼠标点一下游戏界面，会发现输入工具界面消失了
-        3. win + 空格 切换到中文输入法
-        4. 按回车，发现游戏输入界面消失了
-        5. 再次按回车，现在输入工具可以正常发送中文了
+    1. 游戏界面中按<kbd>回车</kbd>进入输入状态
+    2. 用鼠标点一下游戏界面，会发现输入工具界面消失了
+    3. <kbd>Win</kbd> + <kbd>空格</kbd> 切换到中文输入法
+    4. 按<kbd>回车</kbd>，发现游戏输入界面消失了
+    5. 再次按<kbd>回车</kbd>，现在输入工具可以正常发送中文了
 
     正在寻找办法自动来处理这个步骤
 

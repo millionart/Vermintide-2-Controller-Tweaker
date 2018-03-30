@@ -17,27 +17,41 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 ## New control method | 全新控制方式
 
-## Melee weapon status | 近战武器状态
+## <kbd>🗡</kbd> Melee weapon status | 近战武器状态
 
-### Left button | 左键
+### 🖱️ Left button | 左键
 
-- Click to Fight back | 单击反击
-- Hold to attack continuously | 按住连续轻击
+- Click to Fight back
 
-### Right button | 右键
+    单击反击
 
-- Click to Fight back | 单击反击
-- Hold to force attack | 按住连续重击
+- Hold to attack continuously
 
-## Long-range weapon status | 远程武器状态
+    按住连续轻击
 
-### Left button | 左键
+### 🖱️ Right button | 右键
 
-- Hold to aim/accumulate and release to fire | 按住瞄准/蓄力，松开射击
+- Click to Fight back
 
-### Right button | 右键
+    单击反击
+    
+- Hold to force attack
 
-- Hold to continue firing | 按住持续射击
+    按住连续重击
+
+## <kbd>🏹</kbd> Long-range weapon status | 远程武器状态
+
+### 🖱️ Left button | 左键
+
+- Hold to aim/accumulate and release to fire
+
+    按住瞄准/蓄力，松开射击
+
+### 🖱️ Right button | 右键
+
+- Hold to continue firing
+
+    按住持续射击
 
 ----
 
@@ -45,22 +59,27 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 ### <kbd>Shift</kbd>
 
-- Click Shift to run while move to forward with main weapon
-- 装备主武器并移动时点击 Shift 切换为跑步
+- Click to run while move to forward with <kbd>🗡</kbd>
 
-### Wheel Down and Up | 鼠标滚轮
+    装备<kbd>🗡</kbd>并移动时点击切换为跑步
 
-- Switch main and sub-weapons | 切换主副武器
+### 🖱️ Wheel Down and Up | 鼠标滚轮
+
+- Switch main and sub-weapons
+
+    切换主副武器
 
 ### <kbd>P</kbd>
 
 - Teammate control interface, will cancel battle mode
-- 队友控制界面，会取消战斗模式
+
+    队友控制界面，会取消战斗模式
 
 ### <kbd>1</kbd> <kbd>2</kbd>
 
 - Selecting the weapon (will switch to battle mode)
-- 选择武器（会进入战斗模式）
+
+    选择武器（会进入战斗模式）
 
 ----
 

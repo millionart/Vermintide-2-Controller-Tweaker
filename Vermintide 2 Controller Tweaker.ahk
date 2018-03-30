@@ -95,7 +95,7 @@ Return
     Return
 
     LButton::
-    If (inBattle=1) && (weapon=1) && (gameUI=0)
+    If (inBattle=1) && (weapon=1) && (gameUI=0) && (item=0)
     {
         send, {LButton}
         sleep,150
@@ -117,7 +117,7 @@ Return
         rDown:=1
     }
     Else
-    If (inBattle=1) && (weapon=2) && (gameUI=0)
+    If (inBattle=1) && (weapon=2) && (gameUI=0) && (item=0)
     {
         SetTimer, checkRButton,200
         rButton:=GetKeyState("rButton" , "P")
@@ -132,7 +132,7 @@ Return
         }
     }
     Else
-    If (inBattle=0) && (item=1) && (gameUI=0)
+    If (item=1) && (gameUI=0)
     {
         inBattle:=0
         weapon:=0
@@ -150,7 +150,7 @@ Return
     Return
 
     RButton::
-    If (inBattle=1) && (weapon=1) && (gameUI=0)
+    If (inBattle=1) && (weapon=1) && (gameUI=0) && (item=0)
     {
         Send, {LButton}
         Sleep, 200
@@ -170,7 +170,7 @@ Return
         }
     }
     Else
-    If (inBattle=0) && (weapon=2) && (gameUI=0)
+    If (inBattle=1) && (weapon=2) && (gameUI=0) && (item=0)
     {
         lButton:=GetKeyState("LButton" , "P")
         If (lButton=0)
@@ -192,7 +192,7 @@ Return
         }
     }
     Else
-    If (inBattle=0) && (item=1) && (gameUI=0)
+    If (item=1) && (gameUI=0)
     {
         inBattle:=0
         weapon:=0
@@ -335,18 +335,18 @@ battleModeCheck:
     {
         DllCall("SendMessage", "UInt", (WinActive("ahk_exe vermintide2.exe")), "UInt", "80", "UInt", "1", "UInt", (DllCall("LoadKeyboardLayout", "Str", "00000804", "UInt", "257")))
 
-        PixelGetColor, sightTopLeft, A_ScreenWidth/2/dpiRatio, A_ScreenHeight/2/dpiRatio, RGB Slow
+        PixelGetColor, sightBottomRight, A_ScreenWidth/2/dpiRatio, A_ScreenHeight/2/dpiRatio, RGB Slow
         StartingPos=3
         Loop, 3
         {
-            sightTopLeft%A_Index%:= SubStr(sightTopLeft, StartingPos, 2)
-            sightTopLeft%A_Index%:=Format("{1:u}", "0x" . sightTopLeft%A_Index%)
+            sightBottomRight%A_Index%:= SubStr(sightBottomRight, StartingPos, 2)
+            sightBottomRight%A_Index%:=Format("{1:u}", "0x" . sightBottomRight%A_Index%)
             StartingPos:=StartingPos+2
         }
-        sightTopLeftLight:=Round(sightTopLeft1*0.30+sightTopLeft2*0.59+sightTopLeft3*0.11, 0)
+        sightBottomRightLight:=Round(sightBottomRight1*0.30+sightBottomRight2*0.59+sightBottomRight3*0.11, 0)
         
 
-        If (sightTopLeftLight>165) && (item=0) && (itemUI=0)
+        If (sightBottomRightLight>165) && (item=0) && (itemUI=0)
         {
             inBattle:=1
             If (weapon=0)
@@ -355,14 +355,14 @@ battleModeCheck:
             gameUI:=0
         }
         Else
-        If (sightTopLeftLight<15)
+        If (sightBottomRightLight<15)
         {
             voteUI:=1
             inBattle:=0
         }
 
 
-        If (sightTopLeft=0)
+        If (sightBottomRight=0)
         {
             inBattle:=0
             weapon:=1

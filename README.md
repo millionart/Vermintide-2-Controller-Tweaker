@@ -11,7 +11,7 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 - Automatic split long sentence sending | 自动拆分长句发送
 - Automatically replace missing text | 自动替换缺失文字
 - Set game to DX11 and window full mode | 必须设置游戏为 DX11 窗口全屏模式
-- Quick phrase function (F1~F6) | 快捷短语功能
+- Quick phrase function (<kbd>F1</kbd>~<kbd>F6</kbd>) | 快捷短语功能
 
 ----
 
@@ -43,7 +43,7 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 ## All status | 任何状态
 
-### Shift
+### <kbd>Shift</kbd>
 
 - Click Shift to run while move to forward with main weapon
 - 装备主武器并移动时点击 Shift 切换为跑步
@@ -52,15 +52,15 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 - Switch main and sub-weapons | 切换主副武器
 
-### P
+### <kbd>P</kbd>
 
 - Teammate control interface, will cancel battle mode
 - 队友控制界面，会取消战斗模式
 
-### other | 其他
+### <kbd>1</kbd> <kbd>2</kbd>
 
-- Selecting the weapon (button <kbd>1</kbd> <kbd>2</kbd>) will switch to battle mode
-- 选择武器（按键 <kbd>1</kbd> <kbd>2</kbd>），会进入战斗模式
+- Selecting the weapon (will switch to battle mode)
+- 选择武器（会进入战斗模式）
 
 ----
 
@@ -106,9 +106,9 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 ## Note | 注意
 
-- The default skill key is F. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 2nd line to the game corresponding key and save it (then run script again).
+- The default skill key is <kbd>F</kbd>. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 2nd line to the game corresponding key and save it (then run script again).
 
-    默认技能键为 F，如需更改，请编辑 Initialization.ahk 第 2 行 skillKey= 后面的字母改为游戏对应按键，并保存（然后重新执行脚本）。
+    默认技能键为 <kbd>F</kbd>，如需更改，请编辑 Initialization.ahk 第 2 行 skillKey= 后面的字母改为游戏对应按键，并保存（然后重新执行脚本）。
 
 - The console key has been automatically changed from <kbd>F2</kbd> to <kbd>F11</kbd>
 

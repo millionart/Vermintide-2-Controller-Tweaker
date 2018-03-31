@@ -1,4 +1,8 @@
-﻿/*
+﻿
+screenWidth=1680
+screenHeight=1050
+
+/*
 - The default skill key is F. 
 If you need to change it, 
 change the letter after the skillKey= to the game corresponding key (then run script again).
@@ -7,9 +11,15 @@ change the letter after the skillKey= to the game corresponding key (then run sc
 */
 skillKey=f
 
+/* 
+- The default switch weapon key is Q. 
+If you need to change it, 
+change the letter after the switchWeaponKey= to the game corresponding key (then run script again).
 
-screenWidth=1680
-screenHeight=1050
+    默认切换武器键为 Q，如需更改，请编辑 switchWeaponKey= 后面的字母改为游戏对应按键（然后重新执行脚本）
+*/
+switchWeaponKey=q
+
 
 
 /*

@@ -313,7 +313,7 @@ ResolutionAdaptation(width,height)
 }
 
 SetDefaultState:
-ver:=0.51
+ver:=0.52
 inBattle:=0
 item:=0
 inputState:=0

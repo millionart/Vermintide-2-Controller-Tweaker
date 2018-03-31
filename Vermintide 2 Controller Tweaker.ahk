@@ -5,6 +5,8 @@ ListLines Off
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance, force
+SetKeyDelay -1
+Process, Priority,, High
 
 #Include, Initialization.ahk
 ResolutionAdaptation(screenWidth,screenHeight)
@@ -29,6 +31,12 @@ gui, font, s12 cffffff
 Gui, Color, ,000000
 Gui, Add, Edit, x0 y0 w%chatboxW% h25 vchatBox Limit140
 gui, font
+
+Hotkey, IfWinActive, ahk_exe vermintide2.exe
+    Hotkey, %switchWeaponKey%, WeaponSwitchKeyEqualsCustom
+    Hotkey, WheelUp, WeaponSwitchKeyEqualsWheelUp
+    Hotkey, WheelDown, WeaponSwitchKeyEqualsWheelDown
+Hotkey, IfWinActive
 
 SetTimer, battleModeCheck, 200
 
@@ -210,20 +218,6 @@ Return
         normalButton("RButton")
         rDown:=0
     }
-    Return
-
-    WheelUp::
-    If (inBattle=1) || (item=1)
-		WeaponSwitch()
-    Else
-        Send, {WheelUp}
-    Return
-
-    WheelDown::
-    If (inBattle=1) || (item=1)
-		WeaponSwitch()
-    Else
-        Send, {WheelDown}
     Return
 
     t::
@@ -432,22 +426,39 @@ checkRButton:
     }
 Return
 
-WeaponSwitch()
+WeaponSwitchKeyEqualsCustom:
+    WeaponSwitchKey(switchWeaponKey)
+Return
+
+WeaponSwitchKeyEqualsWheelUp:
+    WeaponSwitchKey("WheelUp")
+Return
+
+WeaponSwitchKeyEqualsWheelDown:
+    WeaponSwitchKey("WheelDown")
+Return
+
+WeaponSwitchKey(hotkey)
 {
-	global
-    item:=0
-	If (weapon=1)
-	{
-		send, {RButton Up}
-		rDown:=0
-		Send, {2}
-		weapon:=2
-	}
-	else
-	{
-		Send, {1}
-		weapon:=1
-	}
+    global
+    If (inBattle=1) || (item=1)
+    {
+        item:=0
+        If (weapon=1)
+        {
+            send, {RButton Up}
+            rDown:=0
+            Send, {2}
+            weapon:=2
+        }
+        else
+        {
+            Send, {1}
+            weapon:=1
+        }
+    }
+    Else
+        Send, {%hotkey%}
 }
 
 #Include, Handle.ahk

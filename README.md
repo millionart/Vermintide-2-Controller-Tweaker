@@ -125,9 +125,9 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 ## Note | 注意
 
-- The default skill key is <kbd>F</kbd>. If you need to change it, edit Initialization.ahk change the letter after the skillKey= in the 2nd line to the game corresponding key and save it (then run script again).
+- The default skill key is <kbd>F</kbd>, switch weapon key is <kbd>Q</kbd>. If you need to change them, edit Initialization.ahk and save it (then run script again).
 
-    默认技能键为 <kbd>F</kbd>，如需更改，请编辑 Initialization.ahk 第 2 行 skillKey= 后面的字母改为游戏对应按键，并保存（然后重新执行脚本）。
+    默认技能键为 <kbd>F</kbd>，切换武器键为 <kbd>Q</kbd>，如需更改，请编辑 Initialization.ahk，并保存（然后重新执行脚本）。
 
 - The console key has been automatically changed from <kbd>F2</kbd> to <kbd>F11</kbd>
 

@@ -133,20 +133,6 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
     控制台按键已经自动由 <kbd>F2</kbd> 更换为 <kbd>F11</kbd>
 
-- 在 Windows 10 1709 系统上有可能出现发送文字是问号的问题
-
-    解决方法：
-
-    - **运行脚本和游戏后：**
-
-    1. 游戏界面中按<kbd>回车</kbd>进入输入状态
-    2. 用鼠标点一下游戏界面，会发现输入工具界面消失了
-    3. <kbd>Win</kbd> + <kbd>空格</kbd> 切换到中文输入法
-    4. 按<kbd>回车</kbd>，发现游戏输入界面消失了
-    5. 再次按<kbd>回车</kbd>，现在输入工具可以正常发送中文了
-
-    正在寻找办法自动来处理这个步骤
-
 - Windows 10 with high DPI display mast get the value of 'Change the size of text, apps, and other items', you can find it in above:
     1. Right-click anywhere on the Desktop
     1. Select __Display Settings__ from the menu, You will see it

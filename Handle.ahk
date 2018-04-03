@@ -223,12 +223,12 @@ ResolutionAdaptation(width,height)
     }
 
     If (width=1680)
-        chatBoxX:=60*dpiRatio*100/TAOsize
+        chatBoxX:=55*dpiRatio*100/TAOsize
 
     If (height=1050)
     {
         chatBoxW:=420/TAOsize*100
-        chatBoxY:=850*dpiRatio*100/TAOsize
+        chatBoxY:=865*dpiRatio*100/TAOsize
     }
 
     If (width=2048)

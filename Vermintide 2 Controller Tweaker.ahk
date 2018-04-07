@@ -125,7 +125,7 @@ Return
         rDown:=1
     }
     Else
-    If (inBattle=1) && (weapon=2) && (gameUI=0) && (item=0)
+    If (inBattle=1) && (weapon=2) && (gameUI=0) && (item=0) && (secondWeaponController=1)
     {
         SetTimer, checkRButton,200
         rButton:=GetKeyState("rButton" , "P")
@@ -178,7 +178,7 @@ Return
         }
     }
     Else
-    If (inBattle=1) && (weapon=2) && (gameUI=0) && (item=0)
+    If (inBattle=1) && (weapon=2) && (gameUI=0) && (item=0) && (secondWeaponController=1)
     {
         lButton:=GetKeyState("LButton" , "P")
         If (lButton=0)

@@ -143,15 +143,35 @@ Return
 normalButton(key)
 {
     global
-    ;inBattle:=0
     If (item!=1)
         preWeapon:=weapon
-    ;weapon:=0
-    send, {RButton Up}
-    rDown:=0
-    Send, {%key% Down}
-    KeyWait, %key%
-    Send, {%key% Up}
+
+    If (key="RButton")
+    {
+        Send, {%key% Down}
+        KeyWait, %key%
+        Send, {%key% Up}
+        rDown:=0
+    }
+    Else
+    If (key="LButton")
+    {
+        Send, {%key% Down}
+        KeyWait, %key%
+        Send, {%key% Up}
+        rButton:=GetKeyState("RButton" , "P")
+        If (rButton=0)
+            rDown:=0
+    }
+    Else
+    {
+        send, {RButton Up}
+        rDown:=0
+
+        Send, {%key% Down}
+        KeyWait, %key%
+        Send, {%key% Up}
+    }
 }
 
 ReplaceMissingText(vName)

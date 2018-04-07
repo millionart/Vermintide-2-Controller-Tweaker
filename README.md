@@ -125,6 +125,10 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 
 ## Note | 注意
 
+- Some Long-range weapons are not suitable for this script, such as Drakegun, Beam Staff, Flamestorm Staff, etc. To use these weapons, edit Initialization.ahk and save it (then run script again).
+
+    部分远程武器并不适合此脚本，比如 铁龙炮、光束法杖、烈火风暴法杖 等，如需使用此类武器，请编辑 Initialization.ahk，并保存（然后重新执行脚本）。
+
 - The default skill key is <kbd>F</kbd>, switch weapon key is <kbd>Q</kbd>. If you need to change them, edit Initialization.ahk and save it (then run script again).
 
     默认技能键为 <kbd>F</kbd>，切换武器键为 <kbd>Q</kbd>，如需更改，请编辑 Initialization.ahk，并保存（然后重新执行脚本）。
@@ -132,6 +136,16 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 - The console key has been automatically changed from <kbd>F2</kbd> to <kbd>F11</kbd>
 
     控制台按键已经自动由 <kbd>F2</kbd> 更换为 <kbd>F11</kbd>
+
+- 在 Windows 10 1709 及以上系统中有可能出现发送文字是问号的问题
+
+    解决方法：
+
+    1. 打开 控制面板\时钟、语言和区域\语言
+    2. 点击 中文 项目右边的 选项
+    3. 确认 输入法 一栏中仅包含中文键盘
+    4. 如有英文键盘，将其删除
+    5. 保存
 
 - Windows 10 with high DPI display mast get the value of 'Change the size of text, apps, and other items', you can find it in above:
     1. Right-click anywhere on the Desktop

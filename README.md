@@ -13,6 +13,8 @@ Control optimization tool for Steam game Warhammer: Vermintide 2
 - Set game to DX11 and window full mode | 必须设置游戏为 DX11 窗口全屏模式
 - Quick phrase function (<kbd>F1</kbd>~<kbd>F6</kbd>) | 快捷短语功能
 
+视频教程：https://www.bilibili.com/video/av22802430/ （感谢 UP 主 “丁香与黑醋栗”）
+
 ----
 
 ## New control method | 全新控制方式
